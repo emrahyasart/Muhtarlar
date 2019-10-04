@@ -1,9 +1,19 @@
 module.exports = (sequelize, Sequelize) => {
-  const Cities = sequelize.define("city", {
-    cities: {
-      type: Sequelize.STRING
+  const City = sequelize.define(
+    "city",
+    {
+      id: {
+        type: Sequelize.INTEGER,
+        primaryKey: true
+      },
+      cities: {
+        type: Sequelize.STRING
+      }
+    },
+    {
+      timestamps: false
     }
-  });
+  );
 
-  return Cities;
+  return City;
 };

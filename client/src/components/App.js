@@ -1,4 +1,6 @@
 import React from "react";
+import { Router, Route, Switch } from "react-router-dom";
+import history from "../history";
 import Navbar from "./Navbar";
 import AdvertisementFields from "./AdvertisementFields";
 import "../../node_modules/bootstrap/dist/css/bootstrap.min.css";
@@ -19,8 +21,12 @@ const App = () => {
           <AdvertisementFields />
         </div>
         <div className="col-sm-8" style={{ padding: "0px" }}>
-          <Navbar />
-          <LandingPage />
+          <Router history={history}>
+            <Navbar />
+            <Switch>
+              <Route path="/" exact component={LandingPage} />
+            </Switch>
+          </Router>
         </div>
         <div
           className="col-sm-2"
