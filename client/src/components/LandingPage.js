@@ -1,4 +1,5 @@
 import React from "react";
+import DropDown from "./DropDown";
 import { Container } from "semantic-ui-react";
 
 const LandingPage = () => {
@@ -11,7 +12,9 @@ const LandingPage = () => {
           backgroundColor: "grey",
           padding: "0px"
         }}
-      />
+      >
+        <DropDown />
+      </Container>
     </div>
   );
 };

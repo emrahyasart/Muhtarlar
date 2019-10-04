@@ -15,9 +15,9 @@ require("./app/route/cities.route.js")(app);
 const db = require("./app/config/db.config.js");
 
 // force: true will drop the table if it already exists
-db.sequelize.sync({ force: false }).then(() => {
-  console.log("Resync with { force: false }");
-});
+// db.sequelize.sync({ force: false }).then(() => {
+//   console.log("Resync with { force: false }");
+// });
 
 // Create a Server
 var server = app.listen(8080, function() {
