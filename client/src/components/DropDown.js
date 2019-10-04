@@ -14,6 +14,7 @@ class DropDown extends React.Component {
       return options.filter(opt => re.test(opt.text));
     };
     const cityList = this.props.cities;
+    console.log(cityList);
 
     const options =
       cityList[0] && cityList[0].map(e => ({ ...e, text: e.cities }));
