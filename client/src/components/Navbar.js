@@ -16,7 +16,7 @@ const Navbar = () => {
       style={{
         borderWidth: "0px",
         boxShadow: "0px 0px 0px 0px",
-        height: "100px"
+        height: "80px"
       }}
     >
       <Menu.Item

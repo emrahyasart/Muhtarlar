@@ -2,6 +2,7 @@ import React from "react";
 import Navbar from "./Navbar";
 import AdvertisementFields from "./AdvertisementFields";
 import "../../node_modules/bootstrap/dist/css/bootstrap.min.css";
+import LandingPage from "./LandingPage";
 
 const App = () => {
   return (
@@ -17,8 +18,9 @@ const App = () => {
         >
           <AdvertisementFields />
         </div>
-        <div className="col-sm-8">
+        <div className="col-sm-8" style={{ padding: "0px" }}>
           <Navbar />
+          <LandingPage />
         </div>
         <div
           className="col-sm-2"
