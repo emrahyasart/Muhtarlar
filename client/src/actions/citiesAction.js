@@ -3,7 +3,6 @@ import axios from "../axios/axios";
 
 export const fetchCities = () => async dispatch => {
   const response = await axios.get("cities");
-
   dispatch({ type: FETCH_CITIES, payload: response.data });
 };
 

@@ -1,13 +1,12 @@
 const db = require("../config/db.config.js");
 
-const Cities = db.cities;
+const City = db.city;
 
 // FETCH all cities
 exports.findAll = (req, res) => {
-  Cities.findAll()
+  City.findAll()
     .then(cities => {
       // Send all cities to Client
-      console.log("request came to controller");
       res.send(cities);
     })
     .catch(err => {
