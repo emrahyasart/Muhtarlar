@@ -11,6 +11,9 @@ const corsOptions = {
 app.use(cors(corsOptions));
 
 require("./app/route/cities.route.js")(app);
+require("./app/route/towns.route.js")(app);
+require("./app/route/districts.route.js")(app);
+require("./app/route/neighbourhoods.route.js")(app);
 
 const db = require("./app/config/db.config.js");
 

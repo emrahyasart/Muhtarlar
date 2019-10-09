@@ -1,5 +1,3 @@
-import _ from "lodash";
-
 import { FETCH_CITIES } from "../actions/types";
 
 export default (state = [], action) => {
