@@ -24,6 +24,7 @@ class DropDown extends React.Component {
 
   handleChangeNeighbourhoods = e => {
     const districtId = parseInt(e.target.id);
+    console.log(districtId);
     this.props.fetchNeighbourhoods(districtId);
   };
 

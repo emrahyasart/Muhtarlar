@@ -6,10 +6,13 @@ module.exports = (sequelize, Sequelize) => {
         type: Sequelize.INTEGER,
         primaryKey: true
       },
+      towns: {
+        type: Sequelize.STRING
+      },
       cityId: {
         type: Sequelize.INTEGER
       },
-      towns: {
+      cities: {
         type: Sequelize.STRING
       }
     },

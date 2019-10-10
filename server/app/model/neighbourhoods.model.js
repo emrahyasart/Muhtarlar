@@ -6,16 +6,25 @@ module.exports = (sequelize, Sequelize) => {
         type: Sequelize.INTEGER,
         primaryKey: true
       },
+      neighbourhoods: {
+        type: Sequelize.STRING
+      },
       cityId: {
         type: Sequelize.INTEGER
+      },
+      cities: {
+        type: Sequelize.STRING
       },
       townId: {
         type: Sequelize.INTEGER
       },
+      towns: {
+        type: Sequelize.STRING
+      },
       districtId: {
         type: Sequelize.INTEGER
       },
-      neighbourhoods: {
+      districts: {
         type: Sequelize.STRING
       }
     },
