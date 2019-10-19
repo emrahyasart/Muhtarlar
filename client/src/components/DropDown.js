@@ -5,9 +5,10 @@ import { fetchTowns } from "../actions/townsAction";
 import { fetchDistricts } from "../actions/districtsAction";
 import { fetchNeighbourhoods } from "../actions/neighbourhoodsAction";
 
-import { Dropdown, Form } from "semantic-ui-react";
+import { Dropdown, Form, Container, Button } from "semantic-ui-react";
 
 class DropDown extends React.Component {
+  state = { name: "" };
   componentDidMount() {
     this.props.fetchCities();
   }
@@ -28,7 +29,19 @@ class DropDown extends React.Component {
     this.props.fetchNeighbourhoods(districtId);
   };
 
+  handleChangeSelect = (e, data) => {
+    const selectedNeighbourhood = data.options.filter(
+      neighbourhood => neighbourhood.id === parseInt(e.currentTarget.id)
+    );
+
+    this.setState({
+      name: selectedNeighbourhood[0].text,
+      id: selectedNeighbourhood[0].id
+    });
+  };
+
   render() {
+    console.log(this.state);
     const cityList = this.props.cities;
 
     const options =
@@ -63,49 +76,65 @@ class DropDown extends React.Component {
         value: e.id
       }));
 
-    console.log(optionsNeighbourhoods);
+    // console.log(optionsNeighbourhoods);
 
     return (
-      <Form
+      <Container
         style={{
-          borderRadius: "0px",
+          backgroundColor: "white",
+          boxShadow: "0 6px 20px 0 rgba(0, 0, 0, 0.19)",
           width: "50%",
-          margin: "auto"
+          borderRadius: "5px",
+          height: "300px",
+          padding: "30px 15px 30px 15px"
         }}
       >
-        <Form.Field>
-          <Dropdown
-            onChange={this.handleChangeTowns}
-            options={options}
-            placeholder="Lütfen Şehir Seçiniz"
-            selection
-          />
-        </Form.Field>
-        <Form.Field>
-          <Dropdown
-            onChange={this.handleChangeDistricts}
-            options={optionsTowns && optionsTowns}
-            placeholder="Lütfen İlçe Seçiniz"
-            selection
-          />
-        </Form.Field>
-        <Form.Field>
-          <Dropdown
-            onChange={this.handleChangeNeighbourhoods}
-            options={optionsDistricts && optionsDistricts}
-            placeholder="Lütfen Semt Seçiniz"
-            selection
-          />
-        </Form.Field>
-        <Form.Field>
-          <Dropdown
-            // onChange={this.handleChangeDistricts}
-            options={optionsNeighbourhoods && optionsNeighbourhoods}
-            placeholder="Lütfen Mahalle Seçiniz"
-            selection
-          />
-        </Form.Field>
-      </Form>
+        <Form>
+          <Form.Field>
+            <Dropdown
+              onChange={this.handleChangeTowns}
+              options={options}
+              placeholder="Lütfen Şehir Seçiniz"
+              selection
+              search
+            />
+          </Form.Field>
+          <Form.Field>
+            <Dropdown
+              onChange={this.handleChangeDistricts}
+              options={optionsTowns && optionsTowns}
+              placeholder="Lütfen İlçe Seçiniz"
+              selection
+              search
+            />
+          </Form.Field>
+          <Form.Field>
+            <Dropdown
+              onChange={this.handleChangeNeighbourhoods}
+              options={optionsDistricts && optionsDistricts}
+              placeholder="Lütfen Semt Seçiniz"
+              selection
+              search
+            />
+          </Form.Field>
+          <Form.Field>
+            <Dropdown
+              onChange={this.handleChangeSelect}
+              options={optionsNeighbourhoods && optionsNeighbourhoods}
+              placeholder="Lütfen Mahalle Seçiniz"
+              selection
+              search
+            />
+          </Form.Field>
+        </Form>
+        <Button
+          style={{ width: "100%", margin: "15px 50px 10px 0px" }}
+          color="teal"
+          href={`/mahalle/${this.state.id}/${this.state.name}`}
+        >
+          {this.props.buttonText}
+        </Button>
+      </Container>
     );
   }
 }

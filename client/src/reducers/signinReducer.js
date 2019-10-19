@@ -1,9 +1,9 @@
-import { FETCH_DISTRICTS } from "../actions/types";
+import { SIGN_IN } from "../actions/types";
 
 const key = "key";
 
 export default (state = {}, action) => {
-  if (action.type === FETCH_DISTRICTS) {
+  if (action.type === SIGN_IN) {
     return { ...state, [key]: action.payload };
   }
   return state;

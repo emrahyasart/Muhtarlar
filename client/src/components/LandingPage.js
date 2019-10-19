@@ -10,10 +10,10 @@ const LandingPage = () => {
           width: "100%",
           height: "700px",
           backgroundColor: "grey",
-          padding: "0px"
+          padding: "100px 0px 0px 0px"
         }}
       >
-        <DropDown />
+        <DropDown buttonText="Mahalleme Git" />
       </Container>
     </div>
   );

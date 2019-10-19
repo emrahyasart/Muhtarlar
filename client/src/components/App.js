@@ -5,6 +5,9 @@ import Navbar from "./Navbar";
 import AdvertisementFields from "./AdvertisementFields";
 import "../../node_modules/bootstrap/dist/css/bootstrap.min.css";
 import LandingPage from "./LandingPage";
+import SignUp from "./SignUp";
+import NeighbourhoodPage from "./NeighbourhoodPage";
+import SignIn from "./SignIn";
 
 const App = () => {
   return (
@@ -15,7 +18,7 @@ const App = () => {
           style={{
             borderStyle: "solid",
             borderWidth: "0px 2px 0px 0px",
-            borderColor: "black"
+            borderColor: "lightgrey"
           }}
         >
           <AdvertisementFields />
@@ -25,6 +28,13 @@ const App = () => {
             <Navbar />
             <Switch>
               <Route path="/" exact component={LandingPage} />
+              <Route path="/kayıtol" exact component={SignUp} />
+              <Route
+                path="/mahalle/:id/:name"
+                exact
+                component={NeighbourhoodPage}
+              />
+              <Route path="/girişyap" exact component={SignIn} />
             </Switch>
           </Router>
         </div>
@@ -33,7 +43,7 @@ const App = () => {
           style={{
             borderStyle: "solid",
             borderWidth: "0px 0px 0px 2px",
-            borderColor: "black"
+            borderColor: "lightgrey"
           }}
         >
           <AdvertisementFields />

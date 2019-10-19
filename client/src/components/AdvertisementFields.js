@@ -11,12 +11,12 @@ const AdvertisementFields = () => {
           height: "300px",
           borderStyle: "solid",
           borderWidth: "2px",
-          borderColor: "black",
+          borderColor: "lightgrey",
           textAlign: "center",
           fontSize: "30px"
         }}
       >
-        Advertisement Field
+        Banner
       </Container>
       <Container
         style={{
@@ -25,12 +25,12 @@ const AdvertisementFields = () => {
           height: "300px",
           borderStyle: "solid",
           borderWidth: "2px",
-          borderColor: "black",
+          borderColor: "lightgrey",
           textAlign: "center",
           fontSize: "30px"
         }}
       >
-        Advertisement Field
+        Banner
       </Container>
       <Container
         style={{
@@ -39,12 +39,12 @@ const AdvertisementFields = () => {
           height: "300px",
           borderStyle: "solid",
           borderWidth: "2px",
-          borderColor: "black",
+          borderColor: "lightgrey",
           textAlign: "center",
           fontSize: "30px"
         }}
       >
-        Advertisement Field
+        Banner
       </Container>
     </div>
   );

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Menu, Dropdown } from "semantic-ui-react";
+import { Menu, Dropdown, Button } from "semantic-ui-react";
 
 const Navbar = () => {
   const [color1, setColor1] = useState("");
@@ -22,11 +22,12 @@ const Navbar = () => {
       <Menu.Item
         name="MUHTARLAR"
         style={{
-          color: "green",
+          color: "teal",
           margin: "30px 0px 40px 100px",
           fontWeight: "bold",
           fontSize: "20px"
         }}
+        href="/"
       />
       <Menu.Item
         style={{
@@ -36,7 +37,7 @@ const Navbar = () => {
           fontSize: "13px"
         }}
         name="BUTTON1"
-        onMouseOver={() => setColor1("green")}
+        onMouseOver={() => setColor1("teal")}
         onMouseLeave={() => setColor1("black")}
       />
       <Menu.Item style={styleItem} name="I" />
@@ -47,9 +48,8 @@ const Navbar = () => {
           color: color2,
           fontSize: "13px"
         }}
-        color={color2}
         name="BUTTON2"
-        onMouseOver={() => setColor2("green")}
+        onMouseOver={() => setColor2("teal")}
         onMouseLeave={() => setColor2("black")}
       />
       <Menu.Item style={styleItem} name="I" />
@@ -61,20 +61,8 @@ const Navbar = () => {
           fontSize: "13px"
         }}
         name="BUTTON3"
-        onMouseOver={() => setColor3("green")}
+        onMouseOver={() => setColor3("teal")}
         onMouseLeave={() => setColor3("black")}
-      />
-      <Menu.Item style={styleItem} name="I" />
-      <Menu.Item
-        style={{
-          margin: "40px 0px 40px -15px",
-          fontWeight: "bold",
-          color: color4,
-          fontSize: "13px"
-        }}
-        name="BUTTON4"
-        onMouseOver={() => setColor4("green")}
-        onMouseLeave={() => setColor4("black")}
       />
       <Menu.Item style={styleItem} name="I" />
       <Menu.Item
@@ -83,16 +71,33 @@ const Navbar = () => {
           color: color5
         }}
         icon="user plus"
-        onMouseOver={() => setColor5("green")}
+        onMouseOver={() => setColor5("teal")}
         onMouseLeave={() => setColor5("black")}
+        href="/kayıtol"
       />
+
       <Menu.Item style={styleItem} name="I" />
+      <Menu.Item
+        style={{
+          margin: "40px 0px 40px -15px",
+          fontWeight: "bold",
+          color: color4,
+          fontSize: "13px"
+        }}
+        onMouseOver={() => setColor4("teal")}
+        onMouseLeave={() => setColor4("black")}
+      >
+        <Button style={{ width: "100%" }} color="teal" href="/girişyap">
+          GİRİŞ YAP
+        </Button>
+      </Menu.Item>
+      {/* <Menu.Item style={styleItem} name="I" />
       <Menu.Menu
         style={{
           margin: "42px 0px 40px 0px",
           color: color6
         }}
-        onMouseOver={() => setColor6("green")}
+        onMouseOver={() => setColor6("teal")}
         onMouseLeave={() => setColor6("black")}
       >
         <Dropdown icon="bars">
@@ -102,7 +107,7 @@ const Navbar = () => {
             <Dropdown.Item>ITEM3</Dropdown.Item>
           </Dropdown.Menu>
         </Dropdown>
-      </Menu.Menu>
+      </Menu.Menu> */}
     </Menu>
   );
 };
