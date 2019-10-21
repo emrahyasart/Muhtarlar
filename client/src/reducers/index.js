@@ -6,6 +6,8 @@ import neighbourhoodsReducer from "./neighbourhodsReducer";
 import signupReducer from "./signupReducer";
 import userReducer from "./userReducer";
 import signinReducer from "./signinReducer";
+import resumeReducer from "./resumeReducer";
+import descriptionReducer from "./descriptionReducer";
 
 export default combineReducers({
   cities: citiesReducer,
@@ -14,5 +16,7 @@ export default combineReducers({
   neighbourhoods: neighbourhoodsReducer,
   users: signupReducer,
   currentUser: userReducer,
-  userSignedIn: signinReducer
+  userSignedIn: signinReducer,
+  resume: resumeReducer,
+  description: descriptionReducer
 });

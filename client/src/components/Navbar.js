@@ -1,5 +1,8 @@
 import React, { useState } from "react";
 import { Menu, Dropdown, Button } from "semantic-ui-react";
+import { useSelector } from "react-redux";
+import { signOut } from "../actions/signinAction";
+import history from "../history";
 
 const Navbar = () => {
   const [color1, setColor1] = useState("");
@@ -7,7 +10,22 @@ const Navbar = () => {
   const [color3, setColor3] = useState("");
   const [color4, setColor4] = useState("");
   const [color5, setColor5] = useState("");
-  const [color6, setColor6] = useState("");
+  const [status, setStatus] = useState("");
+
+  const ui = useSelector(state => state);
+  // console.log(ui);
+  // console.log(localStorage);
+
+  const signOutClick = () => {
+    localStorage.clear();
+
+    history.push("/");
+  };
+
+  const signInClick = () => {
+    setStatus("true");
+  };
+
   const styleItem = { margin: "40px 0px 40px -15px", fontWeight: "bold" };
   return (
     <Menu
@@ -87,10 +105,35 @@ const Navbar = () => {
         onMouseOver={() => setColor4("teal")}
         onMouseLeave={() => setColor4("black")}
       >
-        <Button style={{ width: "100%" }} color="teal" href="/girişyap">
-          GİRİŞ YAP
+        <Button
+          style={{ width: "100%" }}
+          color={localStorage.auth ? "red" : "teal"}
+          href={localStorage.auth ? "/" : "/girişyap"}
+          onClick={localStorage.auth ? signOutClick : null}
+        >
+          {localStorage.auth ? "ÇIKIŞ YAP" : "GİRİŞ YAP"}
         </Button>
       </Menu.Item>
+      {localStorage.auth ? (
+        <Menu.Item
+          style={{
+            margin: "40px 0px 40px -15px",
+            fontWeight: "bold",
+            color: color4,
+            fontSize: "13px"
+          }}
+        >
+          {" "}
+          <Button
+            style={{ width: "100%" }}
+            color="teal"
+            href={`/mahalle/${localStorage.neighbourhoodId}/${localStorage.neighbourhoodName}`}
+          >
+            Mahallem
+          </Button>
+        </Menu.Item>
+      ) : null}
+
       {/* <Menu.Item style={styleItem} name="I" />
       <Menu.Menu
         style={{

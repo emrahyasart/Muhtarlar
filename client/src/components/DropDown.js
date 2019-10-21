@@ -15,11 +15,13 @@ class DropDown extends React.Component {
 
   handleChangeTowns = e => {
     const cityId = parseInt(e.target.id);
+    console.log(cityId);
     this.props.fetchTowns(cityId);
   };
 
   handleChangeDistricts = e => {
     const townId = parseInt(e.target.id);
+    console.log(townId);
     this.props.fetchDistricts(townId);
   };
 

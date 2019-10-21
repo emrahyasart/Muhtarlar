@@ -8,3 +8,14 @@ export default (state = {}, action) => {
   }
   return state;
 };
+
+// export default (state = {}, action) => {
+//   switch (action.type) {
+//     case SIGN_IN:
+//       return { ...state, [key]: action.payload };
+//     case SIGN_INSTORE:
+//       return { ...state, [key]: action.payload };
+//     default:
+//       return state;
+//   }
+// };
