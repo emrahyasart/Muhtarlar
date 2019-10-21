@@ -4,4 +4,6 @@ module.exports = function(app) {
   // Retrieve selected neighbourhoods
 
   app.get("/api/neighbourhoods/:districtId", neighbourhoods.findAll);
+
+  app.get("/api/neighbourhood/:id", neighbourhoods.findByPk);
 };

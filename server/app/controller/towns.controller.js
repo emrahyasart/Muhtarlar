@@ -4,7 +4,7 @@ const Town = db.town;
 
 exports.findAll = (req, res) => {
   const cityId = req.params.cityId;
-  console.log(cityId);
+
   Town.findAll({ where: { cityId: req.params.cityId } })
     .then(towns => {
       // Send all selected towns to Client
