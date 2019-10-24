@@ -1,68 +1,32 @@
 import React from "react";
 import { connect } from "react-redux";
 import { Container, Card, Image, Grid, Segment } from "semantic-ui-react";
-import { fetchNeighbourhood } from "../actions/dropdownActions";
 import { fetchUser } from "../actions/userAction";
 import ContentEditable from "./ContentEditable";
 import Projects from "./Projects";
-import Candidates from "./Canditates";
 
-class NeighbourhoodPage extends React.Component {
+class CandidatePage extends React.Component {
   componentDidMount() {
-    this.props.fetchNeighbourhood(this.props.match.params.id);
-    this.props.fetchUser(this.props.match.params.id);
+    this.props.fetchUser(this.props.match.params.neighbourhoodId);
   }
-
   render() {
-    const styleSegment = { fontSize: "16px", padding: "10px" };
-    const styleSpan = { fontWeight: "bold" };
-    const styleHeader = {
-      backgroundColor: "white",
-      boxShadow: "0 6px 20px 0 rgba(0, 0, 0, 0.19)",
-      borderRadius: "5px",
-      marginTop: "30px",
-      marginBottom: "30px",
-      paddingTop: "10px",
-      paddingBottom: "10px",
-      width: "100%",
-      height: "70px",
-      border: "1px solid lightgrey",
-      textAlign: "center",
-      fontWeight: "bold",
-      fontSize: "2em"
-    };
-
     const admin =
       this.props.currentUser.key &&
-      this.props.currentUser.key.filter(user => user.role === "Muhtar");
-    console.log(this.props);
+      this.props.currentUser.key.filter(
+        user => user.id === parseInt(this.props.match.params.id)
+      );
+    admin && console.log(admin[0]);
 
+    const styleSegment = { fontSize: "16px", padding: "10px" };
+    const styleSpan = { fontWeight: "bold" };
+    console.log(this.props);
     return (
       admin !== false &&
       admin !== [] && (
         <div>
           <Container
             style={{
-              backgroundColor: "white",
-              boxShadow: "0 6px 20px 0 rgba(0, 0, 0, 0.19)",
-              borderRadius: "5px",
-              marginTop: "30px",
-              marginBottom: "30px",
-              padding: "0px",
-              width: "100%",
-              height: "300px",
-              border: "1px solid lightgrey"
-            }}
-          />
-          <ContentEditable
-            id={this.props.match.params.id}
-            text="Mahalle Tanıtımı"
-            type="Description"
-            userId={admin && admin[0].id}
-          />
-          <Container style={styleHeader}>Mahalle Muhtarı</Container>
-          <Container
-            style={{
+              marginTop: "50px",
               paddingLeft: "9px",
               paddingRight: "0px",
               width: "100%"
@@ -160,21 +124,13 @@ class NeighbourhoodPage extends React.Component {
             </Grid>
           </Container>
           <ContentEditable
-            id={this.props.match.params.id}
+            id={this.props.match.params.neighbourhoodId}
             text="Özgeçmiş"
             type="Resume"
-            userId={admin && admin[0].id}
           />
           <Projects
-            id={this.props.match.params.id}
-            userId={admin && admin[0].id}
-            role={admin && admin[0].role}
+            id={this.props.match.params.neighbourhoodId}
             text="Projeler"
-            name={this.props.match.params.name}
-          />
-          <Container style={styleHeader}>Muhtar Adayları</Container>
-          <Candidates
-            id={this.props.match.params.id}
             userId={admin && admin[0].id}
             role={admin && admin[0].role}
           />
@@ -186,11 +142,6 @@ class NeighbourhoodPage extends React.Component {
 
 const mapStateToProps = state => {
   return {
-    cities: state.cities,
-    towns: state.towns,
-    districts: state.districts,
-    neighbourhoods: state.neighbourhoods,
-    users: state.users,
     currentUser: state.currentUser
   };
 };
@@ -198,7 +149,6 @@ const mapStateToProps = state => {
 export default connect(
   mapStateToProps,
   {
-    fetchNeighbourhood,
     fetchUser
   }
-)(NeighbourhoodPage);
+)(CandidatePage);

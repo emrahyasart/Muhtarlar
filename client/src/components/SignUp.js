@@ -1,11 +1,12 @@
 import React from "react";
 import { connect } from "react-redux";
-import { fetchCities } from "../actions/citiesAction";
-import { fetchTowns } from "../actions/townsAction";
-import { fetchDistricts } from "../actions/districtsAction";
-import { fetchNeighbourhoods } from "../actions/neighbourhoodsAction";
-import { signUp } from "../actions/signupAction";
-
+import {
+  fetchCities,
+  fetchTowns,
+  fetchDistricts,
+  fetchNeighbourhoods
+} from "../actions/dropdownActions";
+import { signUp } from "../actions/userAction";
 import { Dropdown, Form, Container, Button } from "semantic-ui-react";
 
 class SignUp extends React.Component {
@@ -47,7 +48,6 @@ class SignUp extends React.Component {
     const selectedNeighbourhood = data.options.filter(
       neighbourhood => neighbourhood.id === parseInt(e.currentTarget.id)
     );
-
     this.setState({
       neighbourhoodId: selectedNeighbourhood[0].id,
       neighbourhoodName: selectedNeighbourhood[0].neighbourhoods
@@ -101,7 +101,6 @@ class SignUp extends React.Component {
   };
 
   render() {
-    // console.log(this.state);
     const cityList = this.props.cities;
 
     const options =

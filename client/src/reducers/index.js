@@ -8,6 +8,7 @@ import userReducer from "./userReducer";
 import signinReducer from "./signinReducer";
 import resumeReducer from "./resumeReducer";
 import descriptionReducer from "./descriptionReducer";
+import projectReducer from "./projectReducer";
 
 export default combineReducers({
   cities: citiesReducer,
@@ -18,5 +19,6 @@ export default combineReducers({
   currentUser: userReducer,
   userSignedIn: signinReducer,
   resume: resumeReducer,
-  description: descriptionReducer
+  description: descriptionReducer,
+  project: projectReducer
 });

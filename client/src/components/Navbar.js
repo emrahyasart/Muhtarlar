@@ -1,32 +1,22 @@
 import React, { useState } from "react";
-import { Menu, Dropdown, Button } from "semantic-ui-react";
-import { useSelector } from "react-redux";
-import { signOut } from "../actions/signinAction";
+import { Menu, Button } from "semantic-ui-react";
+
 import history from "../history";
 
-const Navbar = () => {
+const Navbar = props => {
   const [color1, setColor1] = useState("");
   const [color2, setColor2] = useState("");
   const [color3, setColor3] = useState("");
   const [color4, setColor4] = useState("");
   const [color5, setColor5] = useState("");
-  const [status, setStatus] = useState("");
-
-  const ui = useSelector(state => state);
-  // console.log(ui);
-  // console.log(localStorage);
 
   const signOutClick = () => {
     localStorage.clear();
-
     history.push("/");
   };
 
-  const signInClick = () => {
-    setStatus("true");
-  };
-
   const styleItem = { margin: "40px 0px 40px -15px", fontWeight: "bold" };
+
   return (
     <Menu
       fluid
@@ -133,24 +123,6 @@ const Navbar = () => {
           </Button>
         </Menu.Item>
       ) : null}
-
-      {/* <Menu.Item style={styleItem} name="I" />
-      <Menu.Menu
-        style={{
-          margin: "42px 0px 40px 0px",
-          color: color6
-        }}
-        onMouseOver={() => setColor6("teal")}
-        onMouseLeave={() => setColor6("black")}
-      >
-        <Dropdown icon="bars">
-          <Dropdown.Menu>
-            <Dropdown.Item>ITEM1</Dropdown.Item>
-            <Dropdown.Item>ITEM2</Dropdown.Item>
-            <Dropdown.Item>ITEM3</Dropdown.Item>
-          </Dropdown.Menu>
-        </Dropdown>
-      </Menu.Menu> */}
     </Menu>
   );
 };

@@ -1,6 +1,7 @@
 const verifySignUp = require("./verifySignUp");
 
 module.exports = function(app) {
+  console.log("register demand has arrived");
   const users = require("../controller/user.controller");
 
   // Create a new User

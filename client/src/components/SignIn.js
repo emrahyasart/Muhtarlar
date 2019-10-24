@@ -2,7 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import { Form, Container, Button } from "semantic-ui-react";
 import { fetchUserByEmail } from "../actions/userAction";
-import { signIn } from "../actions/signinAction";
+import { signIn } from "../actions/userAction";
 
 class SignIn extends React.Component {
   state = {
@@ -12,10 +12,6 @@ class SignIn extends React.Component {
     statusPassword: false
   };
 
-  componentDidMount() {
-    console.log(this.props.currentUser);
-  }
-
   handleChange = e => {
     const { email, password } = this.state;
     this.setState({ [e.target.name]: e.target.value });
@@ -23,8 +19,8 @@ class SignIn extends React.Component {
     password && this.setState({ statusPassword: false });
   };
 
-  onSubmit = e => {
-    const { email, password, statusEmail, statusPassword } = this.state;
+  onSubmit = () => {
+    const { email, password } = this.state;
     if (!email && !password) {
       this.setState({ statusEmail: true, statusPassword: true });
     } else if (!email) {
@@ -32,11 +28,6 @@ class SignIn extends React.Component {
     } else if (!password) {
       this.setState({ statusPassword: true });
     }
-
-    const info = {
-      email: email,
-      password: password
-    };
 
     password &&
       email &&
@@ -46,8 +37,6 @@ class SignIn extends React.Component {
           password: password
         };
         this.props.signIn(info);
-
-        console.log(info);
       });
   };
 

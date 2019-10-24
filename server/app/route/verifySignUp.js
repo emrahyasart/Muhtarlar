@@ -8,19 +8,29 @@ checkDuplicates = (req, res, next) => {
       neighbourhoodId: req.body.userData.neighbourhoodId
     }
   }).then(user => {
-    if (user && user.role === "Muhtar") {
+    if (user && user.role === req.body.userData.role) {
       res.status(400).send("Fail -> NeighbourhoodId is already in use!");
       return;
     }
-
     next();
   });
 };
 
 const signUpVerify = {};
 signUpVerify.checkDuplicates = checkDuplicates;
-
 module.exports = signUpVerify;
+
+// User.findOne({
+//   where: {
+//     neighbourhoodId: req.body.userData.neighbourhoodId
+//   }
+// }).then(user => {
+//   if (user && user.role === "Muhtar") {
+//     res.status(400).send("Fail -> NeighbourhoodId is already in use!");
+//     return;
+//   }
+//   next();
+// });
 
 // checkDuplicates = (req, res, next) => {
 //   // -> Check Email is already in use

@@ -30,6 +30,7 @@ db.neighbourhood = require("../model/neighbourhoods.model.js")(
 db.user = require("../model/user.model.js")(sequelize, Sequelize);
 db.resume = require("../model/resume.model.js")(sequelize, Sequelize);
 db.description = require("../model/description.model.js")(sequelize, Sequelize);
+db.project = require("../model/project.model.js")(sequelize, Sequelize);
 
 // sequelize
 //   .authenticate()

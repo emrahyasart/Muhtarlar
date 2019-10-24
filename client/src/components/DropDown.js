@@ -1,33 +1,32 @@
 import React from "react";
 import { connect } from "react-redux";
-import { fetchCities } from "../actions/citiesAction";
-import { fetchTowns } from "../actions/townsAction";
-import { fetchDistricts } from "../actions/districtsAction";
-import { fetchNeighbourhoods } from "../actions/neighbourhoodsAction";
-
+import {
+  fetchCities,
+  fetchTowns,
+  fetchDistricts,
+  fetchNeighbourhoods
+} from "../actions/dropdownActions";
 import { Dropdown, Form, Container, Button } from "semantic-ui-react";
 
 class DropDown extends React.Component {
   state = { name: "" };
+
   componentDidMount() {
     this.props.fetchCities();
   }
 
   handleChangeTowns = e => {
-    const cityId = parseInt(e.target.id);
-    console.log(cityId);
+    const cityId = parseInt(e.currentTarget.id);
     this.props.fetchTowns(cityId);
   };
 
   handleChangeDistricts = e => {
-    const townId = parseInt(e.target.id);
-    console.log(townId);
+    const townId = parseInt(e.currentTarget.id);
     this.props.fetchDistricts(townId);
   };
 
   handleChangeNeighbourhoods = e => {
-    const districtId = parseInt(e.target.id);
-    console.log(districtId);
+    const districtId = parseInt(e.currentTarget.id);
     this.props.fetchNeighbourhoods(districtId);
   };
 
@@ -35,7 +34,6 @@ class DropDown extends React.Component {
     const selectedNeighbourhood = data.options.filter(
       neighbourhood => neighbourhood.id === parseInt(e.currentTarget.id)
     );
-
     this.setState({
       name: selectedNeighbourhood[0].text,
       id: selectedNeighbourhood[0].id
@@ -43,7 +41,6 @@ class DropDown extends React.Component {
   };
 
   render() {
-    console.log(this.state);
     const cityList = this.props.cities;
 
     const options =
@@ -77,8 +74,6 @@ class DropDown extends React.Component {
         key: e.id,
         value: e.id
       }));
-
-    // console.log(optionsNeighbourhoods);
 
     return (
       <Container

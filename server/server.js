@@ -18,6 +18,7 @@ require("./app/route/neighbourhoods.route.js")(app);
 require("./app/route/user.route.js")(app);
 require("./app/route/resume.route.js")(app);
 require("./app/route/description.route.js")(app);
+require("./app/route/project.route.js")(app);
 
 const db = require("./app/config/db.config.js");
 
