@@ -22,9 +22,9 @@ exports.addProject = (req, res) => {
 };
 
 exports.findAll = (req, res) => {
-  const neighbourhoodId = req.params.neighbourhoodId;
-  console.log(neighbourhoodId);
-  Project.findAll({ where: { neighbourhoodId: req.params.neighbourhoodId } })
+  const userId = req.params.userId;
+  console.log(userId);
+  Project.findAll({ where: { userId: req.params.userId } })
     .then(project => {
       // Send all selected districts to Client
       res.send(project);

@@ -164,15 +164,6 @@ class SignUp extends React.Component {
                 search
               />
             </Form.Field>
-            <Form.Input
-              label="Adınız"
-              placeholder="Adınız"
-              name="firstname"
-              value={this.state.firstname}
-              onChange={this.handleChange}
-            />
-          </Form.Group>
-          <Form.Group widths="equal">
             <Form.Field>
               <label>İlçe</label>
               <Dropdown
@@ -183,14 +174,6 @@ class SignUp extends React.Component {
                 search
               />
             </Form.Field>
-            <Form.Input
-              label="Soyadınız"
-              placeholder="Soyadınız"
-              lastname="lastname"
-              name="lastname"
-              value={this.state.lastname}
-              onChange={this.handleChange}
-            />
           </Form.Group>
           <Form.Group widths="equal">
             <Form.Field>
@@ -203,16 +186,6 @@ class SignUp extends React.Component {
                 search
               />
             </Form.Field>
-            <Form.Input
-              label="Meslek"
-              placeholder="Meslek"
-              lastname="occupation"
-              name="occupation"
-              value={this.state.occupation}
-              onChange={this.handleChange}
-            />
-          </Form.Group>
-          <Form.Group widths="equal">
             <Form.Field>
               <label>Mahalle</label>
               <Dropdown
@@ -223,16 +196,36 @@ class SignUp extends React.Component {
                 search
               />
             </Form.Field>
+          </Form.Group>
+          <Form.Group widths="equal">
             <Form.Input
-              label="Email"
-              placeholder="Email"
-              email="email"
-              name="email"
-              value={this.state.email}
+              label="Adınız"
+              placeholder="Adınız"
+              name="firstname"
+              value={this.state.firstname}
+              onChange={this.handleChange}
+            />
+
+            <Form.Input
+              label="Soyadınız"
+              placeholder="Soyadınız"
+              lastname="lastname"
+              name="lastname"
+              value={this.state.lastname}
               onChange={this.handleChange}
             />
           </Form.Group>
+
           <Form.Group widths="equal">
+            <Form.Input
+              label="Meslek"
+              placeholder="Meslek"
+              lastname="occupation"
+              name="occupation"
+              value={this.state.occupation}
+              onChange={this.handleChange}
+            />
+
             <Form.Field>
               <label>Statü</label>
               <Dropdown
@@ -243,6 +236,17 @@ class SignUp extends React.Component {
                 search
               />
             </Form.Field>
+          </Form.Group>
+          <Form.Group widths="equal">
+            <Form.Input
+              label="Email"
+              placeholder="Email"
+              email="email"
+              name="email"
+              value={this.state.email}
+              onChange={this.handleChange}
+            />
+
             <Form.Input
               label="Telefon Numarası"
               placeholder="Telefon Numarası"

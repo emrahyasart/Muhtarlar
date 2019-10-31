@@ -29,7 +29,7 @@ const App = () => {
             <Navbar />
             <Switch>
               <Route path="/" exact component={LandingPage} />
-              <Route path="/kayıtol" exact component={SignUp} />
+              <Route path="/KayıtSayfası" exact component={SignUp} />
               <Route
                 path="/mahalle/:id/:name"
                 exact

@@ -3,17 +3,14 @@ import axios from "../axios/axios";
 
 export const addProject = projectData => async dispatch => {
   const response = await axios.post("/addproject", { projectData });
-  // console.log(JSON.parse(response.config.data));
-  console.log(response);
   dispatch({ type: ADD_PROJECT, payload: response.data });
 };
 
-export const fetchProject = neighbourhoodId => async dispatch => {
-  const response = await axios.get(`projects/${neighbourhoodId}`);
-  console.log(response);
+export const fetchProject = userId => async dispatch => {
+  const response = await axios.get(`projects/${userId}`);
   dispatch({
     type: FETCH_PROJECT,
-    payload: response.data.length === 0 ? response.data : response.data
+    payload: response.data
   });
 };
 

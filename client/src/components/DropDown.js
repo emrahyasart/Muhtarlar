@@ -74,7 +74,8 @@ class DropDown extends React.Component {
         key: e.id,
         value: e.id
       }));
-
+    console.log(localStorage);
+    console.log(this.props);
     return (
       <Container
         style={{
@@ -127,7 +128,10 @@ class DropDown extends React.Component {
         <Button
           style={{ width: "100%", margin: "15px 50px 10px 0px" }}
           color="teal"
-          href={`/mahalle/${this.state.id}/${this.state.name}`}
+          href={
+            this.props.neighbourhoods.key &&
+            `/mahalle/${this.state.id}/${this.state.name}`
+          }
         >
           {this.props.buttonText}
         </Button>

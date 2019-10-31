@@ -6,6 +6,7 @@ import { fetchUser } from "../actions/userAction";
 import ContentEditable from "./ContentEditable";
 import Projects from "./Projects";
 import Candidates from "./Canditates";
+import Box from "./Box";
 
 class NeighbourhoodPage extends React.Component {
   componentDidMount() {
@@ -36,6 +37,7 @@ class NeighbourhoodPage extends React.Component {
       this.props.currentUser.key &&
       this.props.currentUser.key.filter(user => user.role === "Muhtar");
     console.log(this.props);
+    console.log(admin);
 
     return (
       admin !== false &&
@@ -54,11 +56,18 @@ class NeighbourhoodPage extends React.Component {
               border: "1px solid lightgrey"
             }}
           />
-          <ContentEditable
+          {/* <ContentEditable
             id={this.props.match.params.id}
             text="Mahalle Tanıtımı"
             type="Description"
             userId={admin && admin[0].id}
+          /> */}
+          <Box
+            boxType="Description"
+            userId={admin && admin[0].id}
+            text="Mahalle Tanıtımı"
+            id={this.props.match.params.id}
+            role={admin && admin[0].role}
           />
           <Container style={styleHeader}>Mahalle Muhtarı</Container>
           <Container
@@ -159,7 +168,21 @@ class NeighbourhoodPage extends React.Component {
               </Grid.Row>
             </Grid>
           </Container>
-          <ContentEditable
+          <Box
+            boxType="Resume"
+            userId={admin && admin[0].id}
+            text="Özgeçmiş"
+            id={this.props.match.params.id}
+            role={admin && admin[0].role}
+          />
+          <Box
+            boxType="Project"
+            userId={admin && admin[0].id}
+            text="Projeler"
+            id={this.props.match.params.id}
+            role={admin && admin[0].role}
+          />
+          {/* <ContentEditable
             id={this.props.match.params.id}
             text="Özgeçmiş"
             type="Resume"
@@ -171,7 +194,7 @@ class NeighbourhoodPage extends React.Component {
             role={admin && admin[0].role}
             text="Projeler"
             name={this.props.match.params.name}
-          />
+          /> */}
           <Container style={styleHeader}>Muhtar Adayları</Container>
           <Candidates
             id={this.props.match.params.id}

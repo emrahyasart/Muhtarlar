@@ -19,9 +19,7 @@ export const fetchUserByEmail = email => async dispatch => {
 };
 
 export const signUp = userData => async dispatch => {
-  console.log(userData);
   const response = await axios.post("/signup", { userData });
-  console.log(response.data);
   if (response.data === "phoneNo duplicate") {
     return alert("Telefon Numarası Kullanılmaktadır");
   } else if (response.data === "email duplicate") {
@@ -35,7 +33,6 @@ export const signUp = userData => async dispatch => {
 
 export const signIn = info => async dispatch => {
   const response = await axios.post("/auth/signin", { info });
-  console.log(response);
   dispatch({ type: SIGN_IN, payload: response.data });
   localStorage.setItem("auth", response.data.auth);
   localStorage.setItem("userId", response.data.id);
@@ -46,6 +43,5 @@ export const signIn = info => async dispatch => {
     response.data.user.neighbourhoodName
   );
 
-  console.log(localStorage);
   history.push("/");
 };

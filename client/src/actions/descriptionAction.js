@@ -3,19 +3,17 @@ import axios from "../axios/axios";
 
 export const addDescription = descriptionData => async dispatch => {
   const response = await axios.post("/adddescription", { descriptionData });
-  console.log(JSON.parse(response.config.data));
   dispatch({
     type: ADD_DESCRIPTION,
-    payload: JSON.parse(response.config.data)
+    payload: response.data
   });
 };
 
 export const fetchDescription = neighbourhoodId => async dispatch => {
   const response = await axios.get(`descriptions/${neighbourhoodId}`);
-  console.log(response.data);
   dispatch({
     type: FETCH_DESCRIPTION,
-    payload: response.data.length === 0 ? response.data : response.data[0]
+    payload: response.data
   });
 };
 
@@ -27,9 +25,10 @@ export const editDescription = (
     `/description/${neighbourhoodId}`,
     descriptionData
   );
-  console.log(JSON.parse(response.config.data));
+  const array = [];
+  array.push(JSON.parse(response.config.data));
   dispatch({
     type: EDIT_DESCRIPTION,
-    payload: JSON.parse(response.config.data)
+    payload: array
   });
 };

@@ -8,7 +8,8 @@ exports.addResume = (req, res) => {
 
   Resume.create({
     body: req.body.resumeData.body,
-    neighbourhoodId: req.body.resumeData.neighbourhoodId
+    neighbourhoodId: req.body.resumeData.neighbourhoodId,
+    userId: req.body.resumeData.userId
   })
     .then(resume => {
       console.log("saved succesfully");
@@ -20,11 +21,12 @@ exports.addResume = (req, res) => {
 };
 
 exports.findAll = (req, res) => {
-  const neighbourhoodId = req.params.neighbourhoodId;
-  console.log(neighbourhoodId);
-  Resume.findAll({ where: { neighbourhoodId: req.params.neighbourhoodId } })
+  const userId = req.params.userId;
+
+  Resume.findAll({ where: { userId: req.params.userId } })
     .then(resume => {
       // Send all selected districts to Client
+      console.log(resume);
       res.send(resume);
     })
     .catch(err => {
@@ -33,14 +35,11 @@ exports.findAll = (req, res) => {
 };
 
 exports.update = (req, res) => {
-  const resume = req.body.body;
-  const neighbourhoodId = req.params.neighbourhoodId;
-  console.log(resume, neighbourhoodId);
   Resume.update(
     {
       body: req.body.body
     },
-    { where: { neighbourhoodId: req.params.neighbourhoodId } }
+    { where: { userId: req.params.userId } }
   )
     .then(() => {
       //   console.log(req);

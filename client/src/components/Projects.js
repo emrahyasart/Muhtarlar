@@ -29,7 +29,6 @@ class Projects extends React.Component {
   };
 
   changeAddProjectState = () => {
-    console.log("fired");
     this.setState({ addProjectContent: true });
   };
 
@@ -41,7 +40,6 @@ class Projects extends React.Component {
       userId: this.props.userId,
       role: this.props.role
     };
-    console.log(project);
     this.props.addProject(project);
   };
 
@@ -111,10 +109,6 @@ class Projects extends React.Component {
       !this.state.addProjectContent
         ? true
         : false;
-
-    console.log(localStorage);
-    console.log(this.props.userId);
-    console.log(localStorage.userId === parseInt(this.props.userId));
 
     return (
       <Container

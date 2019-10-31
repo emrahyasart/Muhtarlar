@@ -11,8 +11,10 @@ exports.addDescription = (req, res) => {
     neighbourhoodId: req.body.descriptionData.neighbourhoodId
   })
     .then(description => {
-      console.log("saved succesfully");
-      res.send("Description saved successfully!" + description);
+      const array = [];
+      array.push(description.dataValues);
+      console.log(array);
+      res.send(array);
     })
     .catch(err => {
       res.status(500).send("Error -> " + err);
@@ -26,6 +28,7 @@ exports.findAll = (req, res) => {
     where: { neighbourhoodId: req.params.neighbourhoodId }
   })
     .then(description => {
+      console.log(description.dataValues);
       res.send(description);
     })
     .catch(err => {
@@ -44,7 +47,6 @@ exports.update = (req, res) => {
     { where: { neighbourhoodId: req.params.neighbourhoodId } }
   )
     .then(() => {
-      //   console.log(req);
       res.status(200).send(res.body);
     })
     .catch(err => {

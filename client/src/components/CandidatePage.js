@@ -2,12 +2,15 @@ import React from "react";
 import { connect } from "react-redux";
 import { Container, Card, Image, Grid, Segment } from "semantic-ui-react";
 import { fetchUser } from "../actions/userAction";
-import ContentEditable from "./ContentEditable";
-import Projects from "./Projects";
+import { fetchProject } from "../actions/projectAction";
+import { fetchResume } from "../actions/resumeAction";
+import Box from "./Box";
 
 class CandidatePage extends React.Component {
   componentDidMount() {
     this.props.fetchUser(this.props.match.params.neighbourhoodId);
+    this.props.fetchProject(this.props.match.params.neighbourhoodId);
+    this.props.fetchResume(this.props.match.params.id);
   }
   render() {
     const admin =
@@ -15,11 +18,10 @@ class CandidatePage extends React.Component {
       this.props.currentUser.key.filter(
         user => user.id === parseInt(this.props.match.params.id)
       );
-    admin && console.log(admin[0]);
 
     const styleSegment = { fontSize: "16px", padding: "10px" };
     const styleSpan = { fontWeight: "bold" };
-    console.log(this.props);
+
     return (
       admin !== false &&
       admin !== [] && (
@@ -123,17 +125,32 @@ class CandidatePage extends React.Component {
               </Grid.Row>
             </Grid>
           </Container>
-          <ContentEditable
+          <Box
+            boxType="Resume"
+            userId={parseInt(this.props.match.params.id)}
+            text="Özgeçmiş"
+            id={this.props.match.params.neighbourhoodId}
+            role="Muhtar Adayı"
+          />
+          <Box
+            boxType="Project"
+            userId={parseInt(this.props.match.params.id)}
+            text="Projeler"
+            id={this.props.match.params.neighbourhoodId}
+            role="Muhtar Adayı"
+          />
+          {/* <ContentEditable
             id={this.props.match.params.neighbourhoodId}
             text="Özgeçmiş"
             type="Resume"
+            userId={parseInt(this.props.match.params.id)}
           />
           <Projects
             id={this.props.match.params.neighbourhoodId}
             text="Projeler"
             userId={admin && admin[0].id}
             role={admin && admin[0].role}
-          />
+          /> */}
         </div>
       )
     );
@@ -142,13 +159,17 @@ class CandidatePage extends React.Component {
 
 const mapStateToProps = state => {
   return {
-    currentUser: state.currentUser
+    currentUser: state.currentUser,
+    projects: state.project,
+    resumes: state.resume
   };
 };
 
 export default connect(
   mapStateToProps,
   {
-    fetchUser
+    fetchUser,
+    fetchProject,
+    fetchResume
   }
 )(CandidatePage);

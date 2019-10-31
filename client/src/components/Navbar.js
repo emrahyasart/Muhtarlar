@@ -31,13 +31,13 @@ const Navbar = props => {
         name="MUHTARLAR"
         style={{
           color: "teal",
-          margin: "30px 0px 40px 100px",
+          margin: "30px 0px 40px 50px",
           fontWeight: "bold",
           fontSize: "20px"
         }}
         href="/"
       />
-      <Menu.Item
+      {/* <Menu.Item
         style={{
           margin: "40px 0px 40px 300px",
           color: color1,
@@ -48,6 +48,20 @@ const Navbar = props => {
         onMouseOver={() => setColor1("teal")}
         onMouseLeave={() => setColor1("black")}
       />
+
+      <Menu.Item style={styleItem} name="I" /> */}
+      <Menu.Item
+        style={{
+          margin: "40px 0px 40px 500px",
+          color: color1,
+          fontWeight: "bold",
+          fontSize: "13px"
+        }}
+        icon="user plus"
+        onMouseOver={() => setColor5("teal")}
+        onMouseLeave={() => setColor5("black")}
+        href="/KayıtSayfası"
+      />
       <Menu.Item style={styleItem} name="I" />
       <Menu.Item
         style={{
@@ -56,7 +70,7 @@ const Navbar = props => {
           color: color2,
           fontSize: "13px"
         }}
-        name="BUTTON2"
+        name="Profilim"
         onMouseOver={() => setColor2("teal")}
         onMouseLeave={() => setColor2("black")}
       />
@@ -68,23 +82,12 @@ const Navbar = props => {
           color: color3,
           fontSize: "13px"
         }}
-        name="BUTTON3"
+        name="Benim Sayfam"
         onMouseOver={() => setColor3("teal")}
         onMouseLeave={() => setColor3("black")}
       />
       <Menu.Item style={styleItem} name="I" />
-      <Menu.Item
-        style={{
-          margin: "40px 0px 40px -15px",
-          color: color5
-        }}
-        icon="user plus"
-        onMouseOver={() => setColor5("teal")}
-        onMouseLeave={() => setColor5("black")}
-        href="/kayıtol"
-      />
 
-      <Menu.Item style={styleItem} name="I" />
       <Menu.Item
         style={{
           margin: "40px 0px 40px -15px",

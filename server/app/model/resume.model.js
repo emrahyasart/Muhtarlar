@@ -13,6 +13,9 @@ module.exports = (sequelize, Sequelize) => {
 
       neighbourhoodId: {
         type: Sequelize.INTEGER
+      },
+      userId: {
+        type: Sequelize.INTEGER
       }
     },
     {

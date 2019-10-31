@@ -19,7 +19,7 @@ class ContentEditable extends React.Component {
   };
 
   componentDidMount() {
-    this.props.fetchResume(this.props.id);
+    this.props.fetchResume(this.props.userId);
     this.props.fetchDescription(this.props.id);
   }
 
@@ -36,7 +36,6 @@ class ContentEditable extends React.Component {
   };
 
   changeEditResumeState = () => {
-    console.log("Changing editResumeContent");
     this.setState({ editResumeContent: true });
   };
 
@@ -45,13 +44,10 @@ class ContentEditable extends React.Component {
   };
 
   changeEditDescriptionState = () => {
-    console.log("Changing editDescriptionContent");
-
     this.setState({ editDescriptionContent: true });
   };
 
   changeAddDescriptionState = () => {
-    console.log("Changing addDescriptionContent");
     this.setState({ addDescriptionContent: true });
   };
 
@@ -59,19 +55,21 @@ class ContentEditable extends React.Component {
     this.setState({ addResumeContent: false });
     const resume = {
       body: this.state.body,
-      neighbourhoodId: this.props.id
+      neighbourhoodId: this.props.id,
+      userId: this.props.userId
     };
     this.props.addResume(resume);
   };
 
   onResumeEdit = () => {
     this.setState({ editResumeContent: false });
-    const neighbourhoodId = this.props.id;
+    const userId = this.props.userId;
     const resume = {
       body: this.state.body,
-      neighbourhoodId: this.props.id
+      neighbourhoodId: this.props.id,
+      userId: this.props.userId
     };
-    this.props.editResume(neighbourhoodId, resume);
+    this.props.editResume(userId, resume);
   };
 
   onDescriptionAdd = () => {
@@ -107,15 +105,23 @@ class ContentEditable extends React.Component {
       borderColor: "white"
     };
 
+    const selectedResumeBody = this.props.resumes.key
+      ? this.props.resumes.key.filter(
+          resume => (resume.userId = this.props.userId)
+        )
+      : "";
+
     const status =
       this.props.resumes.key &&
-      this.props.resumes.key.length === 0 &&
+      selectedResumeBody === "" &&
       !this.state.addResumeContent
         ? true
         : false;
 
     const isBodyExists =
-      this.props.resumes.key && this.props.resumes.key.body === ""
+      (this.props.resumes.key && selectedResumeBody === "") ||
+      (this.props.resumes.key &&
+        (selectedResumeBody !== "" || selectedResumeBody[0].body === ""))
         ? false
         : true;
 
@@ -132,8 +138,6 @@ class ContentEditable extends React.Component {
         : true;
 
     const boxType = this.props.type;
-
-    console.log(this.props.resumes);
 
     return (
       <Container
@@ -174,7 +178,9 @@ class ContentEditable extends React.Component {
             ) : !this.state.editResumeContent &&
               !this.state.addResumeContent ? (
               <Segment style={styleSegment}>
-                {this.props.resumes.key ? this.props.resumes.key.body : null}
+                {selectedResumeBody === ""
+                  ? ""
+                  : selectedResumeBody[0] && selectedResumeBody[0].body}
               </Segment>
             ) : (
               <Segment style={styleSegment}>
@@ -184,7 +190,7 @@ class ContentEditable extends React.Component {
                   suppressContentEditableWarning={true}
                   onChange={this.onResumeChange}
                 >
-                  {this.props.resumes.key.body}
+                  {selectedResumeBody === "" ? "" : selectedResumeBody[0].body}
                 </textarea>
               </Segment>
             )}
