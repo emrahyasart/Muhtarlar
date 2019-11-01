@@ -73,6 +73,7 @@ const Navbar = props => {
         name="Profilim"
         onMouseOver={() => setColor2("teal")}
         onMouseLeave={() => setColor2("black")}
+        href="/ProfilSayfası"
       />
       <Menu.Item style={styleItem} name="I" />
       <Menu.Item

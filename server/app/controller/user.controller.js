@@ -62,6 +62,17 @@ exports.findByPk = (req, res) => {
     });
 };
 
+exports.findById = (req, res) => {
+  console.log("req.params.userId");
+  User.findOne({ where: { id: req.params.userId } })
+    .then(user => {
+      res.send(user);
+    })
+    .catch(err => {
+      res.status(500).send("Error -> " + err);
+    });
+};
+
 exports.signIn = (req, res) => {
   console.log("fired");
   User.findOne({
@@ -93,6 +104,81 @@ exports.signIn = (req, res) => {
       res
         .status(200)
         .send({ auth: true, accessToken: token, id: user.id, user: user });
+    })
+    .catch(err => {
+      res.status(500).send("Error -> " + err);
+    });
+};
+
+exports.passwordChange = (req, res) => {
+  console.log(req.body);
+  User.update(
+    {
+      password: bcrypt.hashSync(req.body.password, 8)
+    },
+    { where: { id: req.params.userId } }
+  )
+    .then(() => {
+      res.status(200).send("Password has changed successfully");
+    })
+    .catch(err => {
+      res.status(500).send("Error -> " + err);
+    });
+};
+
+exports.userUpdate = (req, res) => {
+  console.log(req.body);
+  console.log(req.params);
+  User.update(
+    {
+      firstName: req.body.firstName,
+      lastName: req.body.lastName,
+      occupation: req.body.occupation,
+      email: req.body.email,
+      phoneNo: req.body.phoneNo
+    },
+    { where: { id: req.params.userId } }
+  )
+    .then(() => {
+      //   console.log(req);
+      res.status(200).send(res.body);
+    })
+    .catch(err => {
+      res.status(500).send("Error -> " + err);
+    });
+};
+
+exports.neighbourhoodUpdate = (req, res) => {
+  console.log(req.body);
+  console.log(req.params);
+  User.update(
+    {
+      neighbourhoodName: req.body.neighbourhoodName,
+      neighbourhoodId: req.body.neighbourhoodId
+    },
+    { where: { id: req.params.userId } }
+  )
+    .then(() => {
+      //   console.log(req);
+      res.status(200).send(res.body);
+    })
+    .catch(err => {
+      res.status(500).send("Error -> " + err);
+    });
+};
+
+exports.roleUpdate = (req, res) => {
+  console.log(req.body);
+  console.log(req.params);
+  User.update(
+    {
+      role: req.body.role
+    },
+    { where: { id: req.params.userId } }
+  )
+    .then(() => {
+      //   console.log(req);
+      res.status(200).send(res.body);
     })
     .catch(err => {
       res.status(500).send("Error -> " + err);

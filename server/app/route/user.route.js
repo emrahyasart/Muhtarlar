@@ -1,7 +1,7 @@
 const verifySignUp = require("./verifySignUp");
+const verifyPasswordChange = require("./verifyPasswordChange");
 
 module.exports = function(app) {
-  console.log("register demand has arrived");
   const users = require("../controller/user.controller");
 
   // Create a new User
@@ -13,5 +13,17 @@ module.exports = function(app) {
 
   app.get("/api/useremail/:email", users.findByPk);
 
+  app.get("/api/userbyid/:userId", users.findById);
+
   app.post("/api/auth/signin", users.signIn);
+
+  app.put("/api/userupdate/:userId", users.userUpdate);
+
+  app.put("/api/neighbourhoodupdate/:userId", users.neighbourhoodUpdate);
+  app.put("/api/roleupdate/:userId", users.roleUpdate);
+  app.put(
+    "/api/passwordchange/:userId",
+    [verifyPasswordChange.checkPassword],
+    users.passwordChange
+  );
 };
