@@ -2,8 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import { Container, Card, Image, Grid, Segment } from "semantic-ui-react";
 import { fetchUser } from "../actions/userAction";
-import { fetchProject } from "../actions/projectAction";
-import { fetchResume } from "../actions/resumeAction";
+import { fetchProject, fetchResume } from "../actions/boxActions";
 import Box from "./Box";
 
 class CandidatePage extends React.Component {
@@ -18,7 +17,8 @@ class CandidatePage extends React.Component {
       this.props.currentUser.key.filter(
         user => user.id === parseInt(this.props.match.params.id)
       );
-
+    console.log(this.props);
+    console.log(admin && admin);
     const styleSegment = { fontSize: "16px", padding: "10px" };
     const styleSpan = { fontWeight: "bold" };
 
@@ -139,18 +139,6 @@ class CandidatePage extends React.Component {
             id={this.props.match.params.neighbourhoodId}
             role="Muhtar Adayı"
           />
-          {/* <ContentEditable
-            id={this.props.match.params.neighbourhoodId}
-            text="Özgeçmiş"
-            type="Resume"
-            userId={parseInt(this.props.match.params.id)}
-          />
-          <Projects
-            id={this.props.match.params.neighbourhoodId}
-            text="Projeler"
-            userId={admin && admin[0].id}
-            role={admin && admin[0].role}
-          /> */}
         </div>
       )
     );

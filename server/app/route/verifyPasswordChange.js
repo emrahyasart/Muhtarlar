@@ -16,7 +16,9 @@ checkPassword = (req, res, next) => {
     );
 
     if (!passwordIsValid) {
-      res.status(401).send("Invalid oldPassword");
+      const err = "Invalid oldPassword";
+      //   res.status(401).send("Invalid oldPassword");
+      res.send(err);
       return;
     }
     next();

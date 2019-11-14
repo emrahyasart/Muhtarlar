@@ -1,5 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
+import NotSignedIn from "./NotSignedIn";
 import {
   Container,
   Grid,
@@ -228,7 +229,7 @@ class ProfilePage extends React.Component {
       { key: "Muhtar Adayı", text: "Muhtar Adayı", value: "Muhtar Adayı" }
     ];
     return !localStorage.auth ? (
-      <div>Lütfen Giriş Yapınız</div>
+      <NotSignedIn />
     ) : (
       <Container
         style={{

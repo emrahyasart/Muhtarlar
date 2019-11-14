@@ -10,6 +10,7 @@ import NeighbourhoodPage from "./NeighbourhoodPage";
 import SignIn from "./SignIn";
 import CandidatePage from "./CandidatePage";
 import ProfilePage from "./ProfilePage";
+import NotSignedIn from "./NotSignedIn";
 
 const App = () => {
   return (
@@ -43,6 +44,7 @@ const App = () => {
                 component={CandidatePage}
               />
               <Route path="/ProfilSayfası" exact component={ProfilePage} />
+              <Route path="/GirişYapmadınız" exact component={NotSignedIn} />
             </Switch>
           </Router>
         </div>

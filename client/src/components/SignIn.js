@@ -1,8 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import { Form, Container, Button } from "semantic-ui-react";
-import { fetchUserByEmail } from "../actions/userAction";
-import { signIn } from "../actions/userAction";
+import { fetchUserByEmail, signIn } from "../actions/userAction";
 
 class SignIn extends React.Component {
   state = {

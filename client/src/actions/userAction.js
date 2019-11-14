@@ -110,15 +110,15 @@ export const editRole = (userId, data) => async dispatch => {
 export const editPassword = (userId, data) => async dispatch => {
   console.log(userId, data);
   const response = await axios.put(`/passwordchange/${userId}`, data);
-  console.log(response);
-  console.log(JSON.parse(response.config.data));
-  const array = [];
-  array.push(JSON.parse(response.config.data));
-  console.log(array);
-  dispatch({
-    type: CHANGE_PASSWORD,
-    payload: array
-  });
-  localStorage.clear();
-  history.push("/girişyap");
+  if (response.data !== "Invalid oldPassword") {
+    const array = [];
+    array.push(JSON.parse(response.config.data));
+    // console.log(array);
+    dispatch({
+      type: CHANGE_PASSWORD,
+      payload: array
+    });
+    localStorage.clear();
+    history.push("/girişyap");
+  } else alert("Eski Şifreniz Yanlıştır");
 };

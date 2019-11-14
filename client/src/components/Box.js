@@ -1,17 +1,17 @@
 import React from "react";
 import { connect } from "react-redux";
 import { Container, Grid, Segment, Button } from "semantic-ui-react";
-import { addResume, fetchResume, editResume } from "../actions/resumeAction";
 import {
+  addResume,
+  fetchResume,
+  editResume,
   addDescription,
   fetchDescription,
-  editDescription
-} from "../actions/descriptionAction";
-import {
+  editDescription,
   addProject,
   fetchProject,
   editProject
-} from "../actions/projectAction";
+} from "../actions/boxActions";
 
 class Box extends React.Component {
   state = {

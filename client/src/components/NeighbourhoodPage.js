@@ -3,8 +3,6 @@ import { connect } from "react-redux";
 import { Container, Card, Image, Grid, Segment } from "semantic-ui-react";
 import { fetchNeighbourhood } from "../actions/dropdownActions";
 import { fetchUser } from "../actions/userAction";
-import ContentEditable from "./ContentEditable";
-import Projects from "./Projects";
 import Candidates from "./Canditates";
 import Box from "./Box";
 
@@ -56,12 +54,6 @@ class NeighbourhoodPage extends React.Component {
               border: "1px solid lightgrey"
             }}
           />
-          {/* <ContentEditable
-            id={this.props.match.params.id}
-            text="Mahalle Tanıtımı"
-            type="Description"
-            userId={admin && admin[0].id}
-          /> */}
           <Box
             boxType="Description"
             userId={admin && admin[0].id}
@@ -182,19 +174,6 @@ class NeighbourhoodPage extends React.Component {
             id={this.props.match.params.id}
             role={admin && admin[0].role}
           />
-          {/* <ContentEditable
-            id={this.props.match.params.id}
-            text="Özgeçmiş"
-            type="Resume"
-            userId={admin && admin[0].id}
-          />
-          <Projects
-            id={this.props.match.params.id}
-            userId={admin && admin[0].id}
-            role={admin && admin[0].role}
-            text="Projeler"
-            name={this.props.match.params.name}
-          /> */}
           <Container style={styleHeader}>Muhtar Adayları</Container>
           <Candidates
             id={this.props.match.params.id}
