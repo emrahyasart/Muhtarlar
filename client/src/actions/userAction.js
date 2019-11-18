@@ -7,7 +7,8 @@ import {
   USER_UPDATE,
   NEIGHBOURHOOD_UPDATE,
   ROLE_UPDATE,
-  CHANGE_PASSWORD
+  CHANGE_PASSWORD,
+  RESET_PASSWORD
 } from "./types";
 import axios from "../axios/axios";
 import history from "../history";
@@ -121,4 +122,20 @@ export const editPassword = (userId, data) => async dispatch => {
     localStorage.clear();
     history.push("/girişyap");
   } else alert("Eski Şifreniz Yanlıştır");
+};
+
+export const resetPassword = (email, data) => async dispatch => {
+  const response = await axios.put(`/resetpassword/${email}`, data);
+  console.log(response.data);
+  if (response.data !== "Email not found") {
+    const array = [];
+    array.push(JSON.parse(response.config.data));
+    console.log(array);
+    dispatch({
+      type: RESET_PASSWORD,
+      payload: array
+    });
+    localStorage.clear();
+    history.push("/girişyap");
+  } else alert("Lütfen geçerli bir email adresi giriniz");
 };

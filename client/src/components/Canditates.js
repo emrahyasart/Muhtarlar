@@ -20,7 +20,7 @@ class Candidates extends React.Component {
             <Card
               color="teal"
               key={user.id}
-              href={`/${user.neighbourhoodId}/${user.id}`}
+              href={`/benimsayfam/${user.neighbourhoodId}/${user.id}`}
             >
               <Image
                 src="https://react.semantic-ui.com/images/avatar/large/jenny.jpg"
@@ -45,9 +45,6 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(
-  mapStateToProps,
-  {
-    fetchUser
-  }
-)(Candidates);
+export default connect(mapStateToProps, {
+  fetchUser
+})(Candidates);

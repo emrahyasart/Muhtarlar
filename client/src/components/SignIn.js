@@ -1,5 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
+import { Link } from "react-router-dom";
 import { Form, Container, Button } from "semantic-ui-react";
 import { fetchUserByEmail, signIn } from "../actions/userAction";
 
@@ -47,7 +48,7 @@ class SignIn extends React.Component {
           boxShadow: "0 6px 20px 0 rgba(0, 0, 0, 0.19)",
           width: "50%",
           borderRadius: "5px",
-          height: "270px",
+          height: "320px",
           padding: "30px 15px 30px 15px",
           marginTop: "250px"
         }}
@@ -79,6 +80,21 @@ class SignIn extends React.Component {
           >
             Giriş Yap
           </Button>
+          <Button
+            style={{
+              width: "100%",
+              margin: "15px 50px 10px 0px"
+            }}
+            color="teal"
+            type="submit"
+          >
+            <Link
+              style={{ color: "white", textDecoration: "none" }}
+              to="/şifreyenileme"
+            >
+              Şifremi Unuttum
+            </Link>
+          </Button>
         </Form>
       </Container>
     );
@@ -91,7 +107,4 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(
-  mapStateToProps,
-  { fetchUserByEmail, signIn }
-)(SignIn);
+export default connect(mapStateToProps, { fetchUserByEmail, signIn })(SignIn);

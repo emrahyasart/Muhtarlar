@@ -76,7 +76,7 @@ const Navbar = props => {
         onMouseLeave={() => setColor3("black")}
         href={
           localStorage.auth
-            ? `/${localStorage.neighbourhoodId}/${id})`
+            ? `/benimsayfam/${localStorage.neighbourhoodId}/${id})`
             : "/GirişYapmadınız"
         }
       />

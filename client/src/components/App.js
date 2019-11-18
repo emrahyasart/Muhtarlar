@@ -11,6 +11,8 @@ import SignIn from "./SignIn";
 import CandidatePage from "./CandidatePage";
 import ProfilePage from "./ProfilePage";
 import NotSignedIn from "./NotSignedIn";
+import ForgotPassword from "./ForgotPassword";
+import ResetPassword from "./ResetPassword";
 
 const App = () => {
   return (
@@ -37,14 +39,20 @@ const App = () => {
                 exact
                 component={NeighbourhoodPage}
               />
-              <Route path="/girişyap" exact component={SignIn} />
+              <Route exact path="/girişyap" component={SignIn} />
               <Route
-                path="/:neighbourhoodId/:id"
+                path="/benimsayfam/:neighbourhoodId/:id"
                 exact
                 component={CandidatePage}
               />
               <Route path="/ProfilSayfası" exact component={ProfilePage} />
               <Route path="/GirişYapmadınız" exact component={NotSignedIn} />
+              <Route path="/şifreyenileme" exact component={ForgotPassword} />
+              <Route
+                exact
+                path="/reset/:resetPasswordToken"
+                component={ResetPassword}
+              />
             </Switch>
           </Router>
         </div>

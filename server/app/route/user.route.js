@@ -1,5 +1,6 @@
 const verifySignUp = require("./verifySignUp");
 const verifyPasswordChange = require("./verifyPasswordChange");
+const verifyEmailExists = require("./verifyEmailExists");
 
 module.exports = function(app) {
   const users = require("../controller/user.controller");
@@ -26,4 +27,12 @@ module.exports = function(app) {
     [verifyPasswordChange.checkPassword],
     users.passwordChange
   );
+  app.put(
+    "/api/resetpassword/:email",
+    [verifyEmailExists.checkExists],
+    users.resetPassword
+  );
+
+  app.get("/api/reset", users.findUserByResetPasswordToken);
+  app.put("/api/updatePasswordViaEmail", users.resetForgottenPassword);
 };

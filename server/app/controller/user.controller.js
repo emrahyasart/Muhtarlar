@@ -1,5 +1,8 @@
 const db = require("../config/db.config.js");
 const config = require("../config/config.js");
+const crypto = require("crypto");
+const env = require("../config/env.js");
+const nodemailer = require("nodemailer");
 const User = db.user;
 
 var jwt = require("jsonwebtoken");
@@ -17,6 +20,8 @@ exports.signUp = (req, res) => {
     phoneNo: req.body.userData.phoneNo,
     adress: req.body.userData.adress,
     password: bcrypt.hashSync(req.body.userData.password, 8),
+    resetPasswordToken: null,
+    resetPasswordExpires: null,
     role: req.body.userData.role,
     neighbourhoodId: req.body.userData.neighbourhoodId,
     neighbourhoodName: req.body.userData.neighbourhoodName
@@ -183,4 +188,98 @@ exports.roleUpdate = (req, res) => {
     .catch(err => {
       res.status(500).send("Error -> " + err);
     });
+};
+
+exports.resetPassword = (req, res) => {
+  User.findOne({
+    where: {
+      email: req.body.requestedEmail
+    }
+  }).then(user => {
+    const token = crypto.randomBytes(20).toString("hex");
+    console.log(token);
+    user.update({
+      resetPasswordToken: token,
+      resetPasswordExpires: Date.now() + 360000
+    });
+    const transporter = nodemailer.createTransport({
+      service: "gmail",
+      auth: {
+        user: `${env.EMAIL_ADRESS}`,
+        pass: `${env.EMAIL_PASSWORD}`
+      }
+    });
+
+    const mailOptions = {
+      from: "muhtarlarsifreyenileme@gmail.com",
+      to: `${user.email}`,
+      subject: "Şifre Yenileme Linki",
+      text: `http://localhost:3000/reset/${token}`
+    };
+
+    console.log("sending email");
+
+    transporter.sendMail(mailOptions, function(err, response) {
+      if (err) {
+        console.log("there was an error: ", err);
+      } else {
+        console.log("here is the res: ", response);
+        res.status(200).json("recovery email sent");
+      }
+    });
+  });
+};
+
+exports.findUserByResetPasswordToken = (req, res, next) => {
+  console.log("findUserByResetPasswordToken");
+  User.findOne({
+    where: {
+      resetPasswordToken: req.query.resetPasswordToken
+      // resetPasswordExpires: {
+      //   $gt: Date.now()
+      // }
+    }
+  }).then(user => {
+    if (user === null) {
+      console.log(user);
+      // console.log("password reset link is invalid or has expired");
+      res.json("password reset link is invalid or has expired ");
+    } else {
+      res.status(200).send({
+        email: user.email,
+        message: "password reset link a-ok"
+      });
+    }
+  });
+};
+
+const BCRYPT_SALT_ROUNDS = 8;
+
+exports.resetForgottenPassword = (req, res, next) => {
+  console.log("resetForgottenPassword");
+  User.findOne({
+    where: {
+      email: req.body.email
+    }
+  }).then(user => {
+    if (user !== null) {
+      console.log("user exists");
+      bcrypt
+        .hash(req.body.password, BCRYPT_SALT_ROUNDS)
+        .then(hashedPassword => {
+          user.update({
+            password: hashedPassword,
+            resetPasswordToken: null,
+            resetPasswordExpires: null
+          });
+        })
+        .then(() => {
+          console.log("password updated");
+          res.status(200).send({ message: "password updated" });
+        });
+    } else {
+      console.log("no user exists in db to update");
+      res.status(404).json("no user exists in db to update");
+    }
+  });
 };

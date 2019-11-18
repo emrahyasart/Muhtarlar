@@ -22,6 +22,8 @@ class SignUp extends React.Component {
     adress: "",
     password1: "",
     password2: "",
+    resetPasswordToken: null,
+    resetPasswordExpires: null,
     passerr: false
   };
 
@@ -73,7 +75,9 @@ class SignUp extends React.Component {
       email,
       adress,
       phoneno,
-      password2
+      password2,
+      resetPasswordToken,
+      resetPasswordExpires
     } = this.state;
 
     const user = {
@@ -84,6 +88,8 @@ class SignUp extends React.Component {
       phoneNo: phoneno,
       adress: adress,
       password: password2,
+      resetPasswordToken: resetPasswordToken,
+      resetPasswordExpires: resetPasswordExpires,
       role: role,
       neighbourhoodId: neighbourhoodId,
       neighbourhoodName: neighbourhoodName
@@ -307,7 +313,10 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(
-  mapStateToProps,
-  { fetchCities, fetchTowns, fetchDistricts, fetchNeighbourhoods, signUp }
-)(SignUp);
+export default connect(mapStateToProps, {
+  fetchCities,
+  fetchTowns,
+  fetchDistricts,
+  fetchNeighbourhoods,
+  signUp
+})(SignUp);
