@@ -23,3 +23,6 @@ export const NEIGHBOURHOOD_UPDATE = "NEIGHBOURHOOD_UPDATE";
 export const ROLE_UPDATE = "ROLE_UPDATE";
 export const CHANGE_PASSWORD = "CHANGE_PASSWORD";
 export const RESET_PASSWORD = "RESET_PASSWORD";
+export const ADD_IMAGE = "ADD_IMAGE";
+export const GET_LATLONG = "GET_LATLONG";
+export const ADD_MARKER = "ADD_MARKER";

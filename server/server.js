@@ -1,8 +1,31 @@
 var express = require("express");
 var app = express();
 var bodyParser = require("body-parser");
+// const multer = require("multer");
+// const cloudinary = require("cloudinary");
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({ limit: "50mb", extended: true }));
+
+// const storage = multer.diskStorage({
+//   filename: function(req, file, callback) {
+//     callback(null, Date.now() + file.originalname);
+//   }
+// });
+
+// const imageFilter = function(req, file, cb) {
+//   if (!file.originalname.match(/\.(jpg|jpeg|png|gif)$/i)) {
+//     return cb(new Error("Only image files are accepted!"), false);
+//   }
+//   cb(null, true);
+// };
+
+// const upload = multer({ storage: storage, fileFilter: imageFilter });
+
+// cloudinary.config({
+//   cloud_name: "dt0pm77f6",
+//   api_key: process.env.API_KEY,
+//   api_secret: process.env.API_SECRET
+// });
 
 const cors = require("cors");
 const corsOptions = {
@@ -10,6 +33,15 @@ const corsOptions = {
   optionsSuccessStatus: 200
 };
 app.use(cors(corsOptions));
+// app.use(function(req, res, next) {
+//   res.header("Access-Control-Allow-Origin", "*");
+//   res.header(
+//     "Access-Control-Allow-Headers",
+//     "Origin, X-Requested-With",
+//     "Content-Type, Accept"
+//   );
+//   next();
+// });
 
 require("./app/route/cities.route.js")(app);
 require("./app/route/towns.route.js")(app);

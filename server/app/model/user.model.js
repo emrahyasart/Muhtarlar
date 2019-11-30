@@ -45,6 +45,9 @@ module.exports = (sequelize, Sequelize) => {
       },
       neighbourhoodName: {
         type: Sequelize.STRING
+      },
+      image: {
+        type: Sequelize.STRING
       }
     },
     {

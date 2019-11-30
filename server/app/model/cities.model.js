@@ -8,6 +8,12 @@ module.exports = (sequelize, Sequelize) => {
       },
       cities: {
         type: Sequelize.STRING
+      },
+      lat: {
+        type: Sequelize.INTEGER
+      },
+      lon: {
+        type: Sequelize.INTEGER
       }
     },
     {

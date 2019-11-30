@@ -24,7 +24,8 @@ class SignUp extends React.Component {
     password2: "",
     resetPasswordToken: null,
     resetPasswordExpires: null,
-    passerr: false
+    passerr: false,
+    image: null
   };
 
   componentDidMount() {
@@ -77,7 +78,8 @@ class SignUp extends React.Component {
       phoneno,
       password2,
       resetPasswordToken,
-      resetPasswordExpires
+      resetPasswordExpires,
+      image
     } = this.state;
 
     const user = {
@@ -92,7 +94,8 @@ class SignUp extends React.Component {
       resetPasswordExpires: resetPasswordExpires,
       role: role,
       neighbourhoodId: neighbourhoodId,
-      neighbourhoodName: neighbourhoodName
+      neighbourhoodName: neighbourhoodName,
+      image: image
     };
     this.state.password1 !== this.state.password2
       ? this.setState({ passerr: true })
@@ -103,7 +106,6 @@ class SignUp extends React.Component {
       : /^\d{11}$/.test(this.state.phoneno) === false
       ? alert("Geçersiz telefon numarası")
       : this.props.signUp(user);
-    console.log(user);
   };
 
   render() {

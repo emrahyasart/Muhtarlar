@@ -25,3 +25,22 @@ exports.findByPk = (req, res) => {
       res.status(500).send("Error -> " + err);
     });
 };
+
+exports.markerUpdate = (req, res) => {
+  console.log(req.body);
+  console.log(req.params);
+  Neighbourhood.update(
+    {
+      lat: req.body.lat,
+      lng: req.body.lng
+    },
+    { where: { id: req.params.id } }
+  )
+    .then(() => {
+      //   console.log(req);
+      res.status(200).send(res.body);
+    })
+    .catch(err => {
+      res.status(500).send("Error -> " + err);
+    });
+};

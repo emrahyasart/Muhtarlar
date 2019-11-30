@@ -35,6 +35,7 @@ export default (state = {}, action) => {
       return { ...state, [keyNeighbourhoodUpdate]: action.payload };
     case ROLE_UPDATE:
       return { ...state, [keyUserByRole]: action.payload };
+
     default:
       return state;
   }

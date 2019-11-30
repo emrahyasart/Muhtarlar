@@ -262,17 +262,14 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(
-  mapStateToProps,
-  {
-    addResume,
-    fetchResume,
-    editResume,
-    addDescription,
-    fetchDescription,
-    editDescription,
-    addProject,
-    fetchProject,
-    editProject
-  }
-)(Box);
+export default connect(mapStateToProps, {
+  addResume,
+  fetchResume,
+  editResume,
+  addDescription,
+  fetchDescription,
+  editDescription,
+  addProject,
+  fetchProject,
+  editProject
+})(Box);

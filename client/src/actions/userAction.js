@@ -8,22 +8,19 @@ import {
   NEIGHBOURHOOD_UPDATE,
   ROLE_UPDATE,
   CHANGE_PASSWORD,
-  RESET_PASSWORD
+  RESET_PASSWORD,
+  ADD_IMAGE
 } from "./types";
 import axios from "../axios/axios";
 import history from "../history";
 
 export const fetchUser = id => async dispatch => {
-  console.log(id);
   const response = await axios.get(`/user/${id}`);
-  console.log(response);
   dispatch({ type: FETCH_USER, payload: response.data });
 };
 
 export const fetchUserById = userId => async dispatch => {
-  console.log(userId);
   const response = await axios.get(`/userbyid/${userId}`);
-  console.log(response);
   dispatch({ type: FETCH_USERBYID, payload: response.data });
 };
 
@@ -61,13 +58,9 @@ export const signIn = info => async dispatch => {
 };
 
 export const editUser = (userId, data) => async dispatch => {
-  console.log(userId, data);
   const response = await axios.put(`/userupdate/${userId}`, data);
-  console.log(response);
-  console.log(JSON.parse(response.config.data));
   const array = [];
   array.push(JSON.parse(response.config.data));
-  console.log(array);
   dispatch({
     type: USER_UPDATE,
     payload: array
@@ -77,13 +70,9 @@ export const editUser = (userId, data) => async dispatch => {
 };
 
 export const editNeighbourhood = (userId, data) => async dispatch => {
-  console.log(userId, data);
   const response = await axios.put(`/neighbourhoodupdate/${userId}`, data);
-  console.log(response);
-  console.log(JSON.parse(response.config.data));
   const array = [];
   array.push(JSON.parse(response.config.data));
-  console.log(array);
   dispatch({
     type: NEIGHBOURHOOD_UPDATE,
     payload: array
@@ -93,13 +82,9 @@ export const editNeighbourhood = (userId, data) => async dispatch => {
 };
 
 export const editRole = (userId, data) => async dispatch => {
-  console.log(userId, data);
   const response = await axios.put(`/roleupdate/${userId}`, data);
-  console.log(response);
-  console.log(JSON.parse(response.config.data));
   const array = [];
   array.push(JSON.parse(response.config.data));
-  console.log(array);
   dispatch({
     type: ROLE_UPDATE,
     payload: array
@@ -109,12 +94,10 @@ export const editRole = (userId, data) => async dispatch => {
 };
 
 export const editPassword = (userId, data) => async dispatch => {
-  console.log(userId, data);
   const response = await axios.put(`/passwordchange/${userId}`, data);
   if (response.data !== "Invalid oldPassword") {
     const array = [];
     array.push(JSON.parse(response.config.data));
-    // console.log(array);
     dispatch({
       type: CHANGE_PASSWORD,
       payload: array
@@ -126,11 +109,9 @@ export const editPassword = (userId, data) => async dispatch => {
 
 export const resetPassword = (email, data) => async dispatch => {
   const response = await axios.put(`/resetpassword/${email}`, data);
-  console.log(response.data);
   if (response.data !== "Email not found") {
     const array = [];
     array.push(JSON.parse(response.config.data));
-    console.log(array);
     dispatch({
       type: RESET_PASSWORD,
       payload: array
@@ -138,4 +119,18 @@ export const resetPassword = (email, data) => async dispatch => {
     localStorage.clear();
     history.push("/girişyap");
   } else alert("Lütfen geçerli bir email adresi giriniz");
+};
+
+export const addImage = (imageData, userId) => async dispatch => {
+  const response = await axios.put(`/addimage/${userId}`, { imageData });
+  console.log(response);
+  const array = [];
+  array.push(response.data);
+  dispatch({
+    type: ADD_IMAGE,
+    payload: array
+  });
+  history.push(
+    `/benimsayfam/${localStorage.neighbourhoodId}/${localStorage.userId}`
+  );
 };

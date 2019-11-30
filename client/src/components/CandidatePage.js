@@ -1,10 +1,18 @@
 import React from "react";
 import { connect } from "react-redux";
-import { Container, Card, Image, Grid, Segment } from "semantic-ui-react";
+import {
+  Container,
+  Card,
+  Image,
+  Grid,
+  Segment,
+  Modal,
+  Button
+} from "semantic-ui-react";
 import { fetchUser } from "../actions/userAction";
 import { fetchProject, fetchResume } from "../actions/boxActions";
 import Box from "./Box";
-
+import ImageUpload from "./ImageUpload";
 class CandidatePage extends React.Component {
   componentDidMount() {
     this.props.fetchUser(this.props.match.params.neighbourhoodId);
@@ -12,13 +20,13 @@ class CandidatePage extends React.Component {
     this.props.fetchResume(this.props.match.params.id);
   }
   render() {
+    console.log(this.props);
     const admin =
       this.props.currentUser.key &&
       this.props.currentUser.key.filter(
         user => user.id === parseInt(this.props.match.params.id)
       );
-    console.log(this.props);
-    console.log(admin && admin);
+
     const styleSegment = { fontSize: "16px", padding: "10px" };
     const styleSpan = { fontWeight: "bold" };
 
@@ -36,10 +44,26 @@ class CandidatePage extends React.Component {
           >
             <Grid>
               <Grid.Row>
-                <Grid.Column width={4}>
-                  <Card style={{ marginLeft: "5px" }}>
+                <Grid.Column style={{ paddingLeft: "20px" }} width={3}>
+                  <Container
+                    style={{
+                      backgroundColor: "white",
+                      boxShadow: "0 6px 20px 0 rgba(0, 0, 0, 0.19)",
+                      borderRadius: "5px",
+                      padding: "0px",
+                      width: "100%",
+                      height: "235px",
+                      // border: "1px solid lightgrey",
+                      marginLeft: "5px"
+                    }}
+                  >
                     <Image
-                      src="https://react.semantic-ui.com/images/avatar/large/matthew.png"
+                      src={
+                        this.props.image.key
+                          ? this.props.image.key[0]
+                          : this.props.currentUser.key !== undefined &&
+                            this.props.currentUser.key[0].image
+                      }
                       wrapped
                       ui={false}
                       bordered
@@ -50,10 +74,50 @@ class CandidatePage extends React.Component {
                         border: "1px solid lightgrey"
                       }}
                     />
-                  </Card>
+                  </Container>
+                  <Modal
+                    closeIcon
+                    size={"fullscreen"}
+                    style={{
+                      height: "800px",
+                      width: "100%",
+                      textAlign: "center",
+                      marginLeft: "50px",
+                      marginTop: "50px"
+                    }}
+                    trigger={
+                      <Button
+                        color="teal"
+                        style={{
+                          // marginTop: "19px",
+                          width: "100%",
+                          marginLeft: "auto",
+                          marginRight: "auto",
+                          marginTop: "12px"
+                        }}
+                      >
+                        Resim Yükle
+                      </Button>
+                    }
+                  >
+                    <Modal.Header>Profil Resmi</Modal.Header>
+                    <Modal.Content
+                      image
+                      scrolling
+                      style={{
+                        textAlign: "center",
+                        marginLeft: "auto",
+                        marginRight: "auto"
+                      }}
+                    >
+                      <Container>
+                        <ImageUpload />
+                      </Container>
+                    </Modal.Content>
+                  </Modal>
                 </Grid.Column>
 
-                <Grid.Column width={12} style={{ paddingRight: "0px" }}>
+                <Grid.Column width={13} style={{ paddingRight: "0px" }}>
                   <Container
                     style={{
                       backgroundColor: "white",
@@ -149,15 +213,13 @@ const mapStateToProps = state => {
   return {
     currentUser: state.currentUser,
     projects: state.project,
-    resumes: state.resume
+    resumes: state.resume,
+    image: state.image
   };
 };
 
-export default connect(
-  mapStateToProps,
-  {
-    fetchUser,
-    fetchProject,
-    fetchResume
-  }
-)(CandidatePage);
+export default connect(mapStateToProps, {
+  fetchUser,
+  fetchProject,
+  fetchResume
+})(CandidatePage);

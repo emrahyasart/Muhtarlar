@@ -23,8 +23,6 @@ export default class ResetPassword extends Component {
   };
 
   async componentDidMount() {
-    console.log(this.props);
-    console.log(this.props.match.params.token);
     await axios
       .get("/reset", {
         params: {
@@ -32,7 +30,6 @@ export default class ResetPassword extends Component {
         }
       })
       .then(response => {
-        console.log(response);
         if (response.data.message === "password reset link a-ok") {
           this.setState({
             email: response.data.email,
@@ -67,7 +64,6 @@ export default class ResetPassword extends Component {
         password: this.state.password
       })
       .then(response => {
-        console.log(response.data);
         if (response.data.message === "password updated") {
           this.setState({
             updated: true,

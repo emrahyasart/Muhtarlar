@@ -9,6 +9,8 @@ import signinReducer from "./signinReducer";
 import resumeReducer from "./resumeReducer";
 import descriptionReducer from "./descriptionReducer";
 import projectReducer from "./projectReducer";
+import imageReducer from "./imageReducer";
+import locationReducer from "./locationReducer";
 
 export default combineReducers({
   cities: citiesReducer,
@@ -20,5 +22,7 @@ export default combineReducers({
   userSignedIn: signinReducer,
   resume: resumeReducer,
   description: descriptionReducer,
-  project: projectReducer
+  project: projectReducer,
+  image: imageReducer,
+  location: locationReducer
 });

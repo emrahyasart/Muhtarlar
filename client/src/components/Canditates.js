@@ -12,7 +12,7 @@ class Candidates extends React.Component {
     const users =
       this.props.users.key &&
       this.props.users.key.filter(user => user.role === "Muhtar Adayı");
-    console.log(users);
+
     return (
       <Card.Group itemsPerRow={4}>
         {users &&
@@ -23,7 +23,11 @@ class Candidates extends React.Component {
               href={`/benimsayfam/${user.neighbourhoodId}/${user.id}`}
             >
               <Image
-                src="https://react.semantic-ui.com/images/avatar/large/jenny.jpg"
+                src={
+                  user.image !== null
+                    ? user.image
+                    : "https://react.semantic-ui.com/images/wireframe/image.png"
+                }
                 wrapped
                 ui={false}
               />

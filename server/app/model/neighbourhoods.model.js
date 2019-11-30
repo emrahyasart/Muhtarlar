@@ -26,6 +26,12 @@ module.exports = (sequelize, Sequelize) => {
       },
       districts: {
         type: Sequelize.STRING
+      },
+      lat: {
+        type: Sequelize.INTEGER
+      },
+      lng: {
+        type: Sequelize.INTEGER
       }
     },
     {

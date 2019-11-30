@@ -13,6 +13,7 @@ import ProfilePage from "./ProfilePage";
 import NotSignedIn from "./NotSignedIn";
 import ForgotPassword from "./ForgotPassword";
 import ResetPassword from "./ResetPassword";
+import ImageUpload from "./ImageUpload";
 
 const App = () => {
   return (
@@ -32,27 +33,28 @@ const App = () => {
           <Router history={history}>
             <Navbar />
             <Switch>
-              <Route path="/" exact component={LandingPage} />
-              <Route path="/KayıtSayfası" exact component={SignUp} />
+              <Route exact path="/" component={LandingPage} />
+              <Route exact path="/KayıtSayfası" component={SignUp} />
               <Route
-                path="/mahalle/:id/:name"
                 exact
+                path="/mahalle/:id/:name"
                 component={NeighbourhoodPage}
               />
               <Route exact path="/girişyap" component={SignIn} />
               <Route
-                path="/benimsayfam/:neighbourhoodId/:id"
                 exact
+                path="/benimsayfam/:neighbourhoodId/:id"
                 component={CandidatePage}
               />
-              <Route path="/ProfilSayfası" exact component={ProfilePage} />
-              <Route path="/GirişYapmadınız" exact component={NotSignedIn} />
-              <Route path="/şifreyenileme" exact component={ForgotPassword} />
+              <Route exact path="/ProfilSayfası" component={ProfilePage} />
+              <Route exact path="/GirişYapmadınız" component={NotSignedIn} />
+              <Route exact path="/şifreyenileme" component={ForgotPassword} />
               <Route
                 exact
                 path="/reset/:resetPasswordToken"
                 component={ResetPassword}
               />
+              <Route exact path="/resimyükle" component={ImageUpload} />
             </Switch>
           </Router>
         </div>

@@ -21,12 +21,15 @@ module.exports = function(app) {
   app.put("/api/userupdate/:userId", users.userUpdate);
 
   app.put("/api/neighbourhoodupdate/:userId", users.neighbourhoodUpdate);
+
   app.put("/api/roleupdate/:userId", users.roleUpdate);
+
   app.put(
     "/api/passwordchange/:userId",
     [verifyPasswordChange.checkPassword],
     users.passwordChange
   );
+
   app.put(
     "/api/resetpassword/:email",
     [verifyEmailExists.checkExists],
@@ -34,5 +37,9 @@ module.exports = function(app) {
   );
 
   app.get("/api/reset", users.findUserByResetPasswordToken);
+
   app.put("/api/updatePasswordViaEmail", users.resetForgottenPassword);
+  console.log("addimage");
+
+  app.put("/api/addimage/:userId", users.addImage);
 };

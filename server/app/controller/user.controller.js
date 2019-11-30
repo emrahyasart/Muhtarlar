@@ -3,7 +3,16 @@ const config = require("../config/config.js");
 const crypto = require("crypto");
 const env = require("../config/env.js");
 const nodemailer = require("nodemailer");
+const cloudinary = require("cloudinary");
 const User = db.user;
+
+cloudinary.config({
+  cloud_name: "dt0pm77f6",
+  api_key: process.env.API_KEY,
+  api_secret: process.env.API_SECRET
+});
+
+console.log(process.env);
 
 var jwt = require("jsonwebtoken");
 var bcrypt = require("bcryptjs");
@@ -24,7 +33,8 @@ exports.signUp = (req, res) => {
     resetPasswordExpires: null,
     role: req.body.userData.role,
     neighbourhoodId: req.body.userData.neighbourhoodId,
-    neighbourhoodName: req.body.userData.neighbourhoodName
+    neighbourhoodName: req.body.userData.neighbourhoodName,
+    image: req.body.userData.image
   })
     .then(user => {
       console.log("registered succesfully");
@@ -281,5 +291,28 @@ exports.resetForgottenPassword = (req, res, next) => {
       console.log("no user exists in db to update");
       res.status(404).json("no user exists in db to update");
     }
+  });
+};
+
+exports.addImage = (req, res) => {
+  // console.log(req.body.imageData);
+
+  cloudinary.v2.uploader.upload(`${req.body.imageData}`, function(
+    error,
+    result
+  ) {
+    User.update(
+      {
+        image: result.url
+      },
+      { where: { id: req.params.userId } }
+    )
+      .then(() => {
+        //   console.log(req);
+        res.status(200).send(result.url);
+      })
+      .catch(err => {
+        res.status(500).send("Error -> " + err);
+      });
   });
 };

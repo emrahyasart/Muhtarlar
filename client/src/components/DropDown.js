@@ -6,10 +6,19 @@ import {
   fetchDistricts,
   fetchNeighbourhoods
 } from "../actions/dropdownActions";
+import { getCoordinates } from "../actions/locationAction";
+
 import { Dropdown, Form, Container, Button } from "semantic-ui-react";
 
 class DropDown extends React.Component {
-  state = { name: "" };
+  state = {
+    name: "",
+    townForm: false,
+    districtForm: false,
+    neighbourhoodForm: false,
+    showButton: false,
+    height: "100px"
+  };
 
   componentDidMount() {
     this.props.fetchCities();
@@ -17,17 +26,29 @@ class DropDown extends React.Component {
 
   handleChangeTowns = e => {
     const cityId = parseInt(e.currentTarget.id);
+    const city = this.props.cities[0].filter(city => city.id === cityId);
+    console.log(city);
+    const data = {
+      lat: city[0] && city[0].lat,
+      lon: city[0] && city[0].lon
+    };
+    this.props.getCoordinates(data);
     this.props.fetchTowns(cityId);
+    this.setState({ townForm: true, height: "150px" });
   };
 
   handleChangeDistricts = e => {
     const townId = parseInt(e.currentTarget.id);
     this.props.fetchDistricts(townId);
+    this.setState({ districtForm: true, height: "200px" });
   };
 
   handleChangeNeighbourhoods = e => {
     const districtId = parseInt(e.currentTarget.id);
     this.props.fetchNeighbourhoods(districtId);
+    {
+      this.setState({ neighbourhoodForm: true, height: "250px" });
+    }
   };
 
   handleChangeSelect = (e, data) => {
@@ -36,11 +57,14 @@ class DropDown extends React.Component {
     );
     this.setState({
       name: selectedNeighbourhood[0].text,
-      id: selectedNeighbourhood[0].id
+      id: selectedNeighbourhood[0].id,
+      showButton: true,
+      height: "300px"
     });
   };
 
   render() {
+    const styleDropDown = { backgroundColor: "transparent", color: "black" };
     const cityList = this.props.cities;
 
     const options =
@@ -74,22 +98,26 @@ class DropDown extends React.Component {
         key: e.id,
         value: e.id
       }));
-    console.log(localStorage);
-    console.log(this.props);
+
     return (
       <Container
         style={{
-          backgroundColor: "white",
+          backgroundColor: "none",
           boxShadow: "0 6px 20px 0 rgba(0, 0, 0, 0.19)",
           width: "50%",
+          border: "1px solid grey",
           borderRadius: "5px",
-          height: "300px",
-          padding: "30px 15px 30px 15px"
+          height: this.state.height,
+          padding: "30px 15px 30px 15px",
+          position: "relative",
+          zIndex: "2",
+          opacity: "1"
         }}
       >
         <Form>
           <Form.Field>
             <Dropdown
+              style={styleDropDown}
               onChange={this.handleChangeTowns}
               options={options}
               placeholder="Lütfen Şehir Seçiniz"
@@ -97,44 +125,62 @@ class DropDown extends React.Component {
               search
             />
           </Form.Field>
-          <Form.Field>
-            <Dropdown
-              onChange={this.handleChangeDistricts}
-              options={optionsTowns && optionsTowns}
-              placeholder="Lütfen İlçe Seçiniz"
-              selection
-              search
-            />
-          </Form.Field>
-          <Form.Field>
-            <Dropdown
-              onChange={this.handleChangeNeighbourhoods}
-              options={optionsDistricts && optionsDistricts}
-              placeholder="Lütfen Semt Seçiniz"
-              selection
-              search
-            />
-          </Form.Field>
-          <Form.Field>
-            <Dropdown
-              onChange={this.handleChangeSelect}
-              options={optionsNeighbourhoods && optionsNeighbourhoods}
-              placeholder="Lütfen Mahalle Seçiniz"
-              selection
-              search
-            />
-          </Form.Field>
+          {this.state.townForm && (
+            <Form.Field>
+              <Dropdown
+                style={styleDropDown}
+                onChange={this.handleChangeDistricts}
+                options={optionsTowns && optionsTowns}
+                placeholder="Lütfen İlçe Seçiniz"
+                selection
+                search
+              />
+            </Form.Field>
+          )}
+          {this.state.districtForm && (
+            <Form.Field>
+              <Dropdown
+                style={styleDropDown}
+                onChange={this.handleChangeNeighbourhoods}
+                options={optionsDistricts && optionsDistricts}
+                placeholder="Lütfen Semt Seçiniz"
+                selection
+                search
+              />
+            </Form.Field>
+          )}
+          {this.state.neighbourhoodForm && (
+            <Form.Field>
+              <Dropdown
+                style={styleDropDown}
+                onChange={this.handleChangeSelect}
+                options={optionsNeighbourhoods && optionsNeighbourhoods}
+                placeholder="Lütfen Mahalle Seçiniz"
+                selection
+                search
+              />
+            </Form.Field>
+          )}
         </Form>
-        <Button
-          style={{ width: "100%", margin: "15px 50px 10px 0px" }}
-          color="teal"
-          href={
-            this.props.neighbourhoods.key &&
-            `/mahalle/${this.state.id}/${this.state.name}`
-          }
-        >
-          {this.props.buttonText}
-        </Button>
+        {this.state.showButton && (
+          <Button
+            style={{
+              width: "100%",
+              margin: "15px 50px 10px 0px",
+              backgroundColor: "transparent",
+              color: "red",
+              fontSize: "15px",
+              border: "1px solid lightgrey"
+            }}
+            // color="teal"
+            href={
+              this.props.neighbourhoods.key &&
+              `/mahalle/${this.state.id}/${this.state.name}`
+            }
+          >
+            {this.props.buttonText}
+          </Button>
+        )}
       </Container>
     );
   }
@@ -145,11 +191,15 @@ const mapStateToProps = state => {
     cities: state.cities,
     towns: state.towns,
     districts: state.districts,
-    neighbourhoods: state.neighbourhoods
+    neighbourhoods: state.neighbourhoods,
+    location: state.location
   };
 };
 
-export default connect(
-  mapStateToProps,
-  { fetchCities, fetchTowns, fetchDistricts, fetchNeighbourhoods }
-)(DropDown);
+export default connect(mapStateToProps, {
+  fetchCities,
+  fetchTowns,
+  fetchDistricts,
+  fetchNeighbourhoods,
+  getCoordinates
+})(DropDown);
