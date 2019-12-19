@@ -19,7 +19,7 @@ const App = () => {
   return (
     <div className="container-fluid">
       <div className="row">
-        <div
+        {/* <div
           className="col-sm-2"
           style={{
             borderStyle: "solid",
@@ -28,8 +28,8 @@ const App = () => {
           }}
         >
           <AdvertisementFields />
-        </div>
-        <div className="col-sm-8" style={{ padding: "0px" }}>
+        </div> */}
+        <div className="col-sm-12" style={{ padding: "0px" }}>
           <Router history={history}>
             <Navbar />
             <Switch>
@@ -58,7 +58,7 @@ const App = () => {
             </Switch>
           </Router>
         </div>
-        <div
+        {/* <div
           className="col-sm-2"
           style={{
             borderStyle: "solid",
@@ -67,7 +67,7 @@ const App = () => {
           }}
         >
           <AdvertisementFields />
-        </div>
+        </div> */}
       </div>
     </div>
   );

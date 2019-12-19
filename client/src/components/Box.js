@@ -48,11 +48,11 @@ class Box extends React.Component {
     content !== false && this.setState({ isText: true });
   }
 
-  componentDidUpdate(prevProps, prevState) {
-    if (prevProps.userId !== undefined && this.state.user === false) {
-      this.setState({ user: true });
+  componentDidUpdate(prevProps) {
+    if (prevProps.userId !== false && this.state.user === false) {
       this.props.fetchResume(this.props.userId);
       this.props.fetchProject(this.props.userId);
+      this.setState({ user: true });
     }
   }
 

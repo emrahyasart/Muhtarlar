@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import GoogleMapReact from "google-map-react";
 import { connect } from "react-redux";
-import DropDown from "./DropDown";
 import { Container, Button } from "semantic-ui-react";
 import Marker from "./Marker";
 import { addMarker } from "../actions/locationAction";
@@ -9,9 +8,10 @@ import { addMarker } from "../actions/locationAction";
 class GoogleMap extends Component {
   static defaultProps = {
     center: {
-      lat: 39.92077,
-      lng: 32.85411
-    }
+      lat: 39.1,
+      lng: 35.48333
+    },
+    bounds: "TR"
   };
 
   state = { newLat: null, newLng: null, markerChange: false };
@@ -36,9 +36,6 @@ class GoogleMap extends Component {
   };
 
   render() {
-    console.log(this.props);
-    console.log(localStorage);
-
     const defaultMarkerCenter = this.props.neighbourhoods.key && {
       lat: this.props.neighbourhoods.key.lat,
       lng: this.props.neighbourhoods.key.lon
@@ -58,12 +55,16 @@ class GoogleMap extends Component {
       >
         <GoogleMapReact
           bootstrapURLKeys={{
-            key: "",
-            libraries: ["places", "geometry"]
+            key: process.env.REACT_APP_API_KEY,
+            libraries: ["places", "geometry"],
+            region: "TR",
+            language: "tr",
+            sovereignt: "Turkey"
           }}
           defaultCenter={this.props.center}
           center={this.props.center}
           defaultZoom={parseInt(this.props.zoom)}
+          zoom={parseInt(this.props.zoom)}
           yesIWantToUseGoogleMapApiInternals
           onClick={this.handleMapClick}
         >
@@ -94,7 +95,7 @@ class GoogleMap extends Component {
             color="teal"
             onClick={this.handleMarkerAdd}
           >
-            Muhtarık Lokasyonu Ekle
+            Muhtarlık Lokasyonu Ekle
           </Button>
         ) : null}
       </Container>

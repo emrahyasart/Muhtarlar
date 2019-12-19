@@ -2,11 +2,6 @@ import React from "react";
 import { connect } from "react-redux";
 import { Container, Card, Image, Grid, Segment } from "semantic-ui-react";
 import { fetchNeighbourhood, fetchCities } from "../actions/dropdownActions";
-import {
-  fetchProject,
-  fetchResume,
-  fetchDescription
-} from "../actions/boxActions";
 import { fetchUser } from "../actions/userAction";
 import Candidates from "./Canditates";
 import GoogleMap from "./GoogleMap";
@@ -15,9 +10,6 @@ import Box from "./Box";
 class NeighbourhoodPage extends React.Component {
   componentDidMount() {
     this.props.fetchNeighbourhood(this.props.match.params.id);
-    this.props.fetchProject(this.props.match.params.neighbourhoodId);
-    this.props.fetchResume(this.props.match.params.id);
-    this.props.fetchDescription(this.props.match.params.neighbourhoodId);
     this.props.fetchUser(this.props.match.params.id);
     this.props.fetchCities();
   }
@@ -76,12 +68,16 @@ class NeighbourhoodPage extends React.Component {
             occupation: admin[0].occupation,
             adress: admin[0].adress,
             adminId: admin[0].id,
-            adminRole: admin[0].role
+            adminRole: admin[0].role,
+            adminImage: admin[0].image
           }
         : null;
-
+    console.log(this.props);
     return (
       <div>
+        <Container style={styleHeader}>
+          {this.props.match.params.name} Sayfasına Hoşgeldiniz
+        </Container>
         <Container
           style={{
             backgroundColor: "white",
@@ -109,6 +105,13 @@ class NeighbourhoodPage extends React.Component {
             neighbourhoodName={this.props.match.params.name}
           />
         </Container>
+        <Box
+          boxType="Description"
+          userId={adminInfo !== null && adminInfo.adminId}
+          text="Mahalle Tanıtımı"
+          id={this.props.match.params.id}
+          role={adminInfo !== null && adminInfo.adminRole}
+        />
 
         <Container style={styleHeader}>Mahalle Muhtarı</Container>
         <Container
@@ -123,7 +126,7 @@ class NeighbourhoodPage extends React.Component {
               <Grid.Column width={4}>
                 <Card style={{ marginLeft: "5px" }}>
                   <Image
-                    src="https://react.semantic-ui.com/images/avatar/large/matthew.png"
+                    src={adminInfo !== null && adminInfo.image}
                     wrapped
                     ui={false}
                     bordered
@@ -215,13 +218,7 @@ class NeighbourhoodPage extends React.Component {
             </Grid.Row>
           </Grid>
         </Container>
-        <Box
-          boxType="Description"
-          userId={adminInfo !== null && adminInfo.adminId}
-          text="Mahalle Tanıtımı"
-          id={this.props.match.params.id}
-          role={adminInfo !== null && adminInfo.adminRole}
-        />
+
         <Box
           boxType="Resume"
           userId={adminInfo !== null && adminInfo.adminId}
@@ -265,8 +262,5 @@ const mapStateToProps = state => {
 export default connect(mapStateToProps, {
   fetchNeighbourhood,
   fetchUser,
-  fetchCities,
-  fetchProject,
-  fetchResume,
-  fetchDescription
+  fetchCities
 })(NeighbourhoodPage);

@@ -5,35 +5,41 @@ import { connect } from "react-redux";
 import { Container } from "semantic-ui-react";
 
 class LandingPage extends React.Component {
+  state = { newZoom: "7" };
+
+  componentDidUpdate(prevProps) {
+    if (prevProps.location !== this.props.location) {
+      this.setState({ newZoom: "10" });
+    }
+  }
   render() {
-    console.log(this.props);
     const newCenter = this.props.location.key && {
       lat: this.props.location.key.lat,
       lng: this.props.location.key.lon
     };
 
-    console.log(newCenter);
+    const changedZoom = this.state.newZoom;
     return (
       <div>
         <Container
           style={{
             width: "100%",
-            height: "600px",
+            height: "800px",
             backgroundColor: "grey",
             padding: "0px 0px 0px 0px"
           }}
         >
           <GoogleMap
-            height="600px"
-            blur="1px"
-            zoom="11"
+            height="800px"
+            // blur="1px"
+
+            zoom={this.state.newZoom}
             btn="none"
             center={newCenter}
           />
-          <Container style={{ marginTop: "-600px" }}>
-            <DropDown buttonText="Mahalleme Git" />
-          </Container>{" "}
+          <DropDown buttonText="Mahalleme Git" />
         </Container>
+        <Container style={{ height: "500px" }} />
       </div>
     );
   }
